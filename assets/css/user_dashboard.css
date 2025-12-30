@@ -1,34 +1,78 @@
 * { margin:0; padding:0; box-sizing:border-box; font-family:'Segoe UI',sans-serif; }
-body { background:#f0f2f5; color:#333; }
+body { background:#f4f7f6; color:#333; }
 
-.topbar, .bottombar { 
-    background:#1a3b5d; color:white; padding:15px; 
+/* --- TOPBAR --- */
+.topbar { 
+    background:#1a3b5d; color:white; padding:15px 30px; 
     display:flex; justify-content:space-between; align-items:center; 
-    position:fixed; width:100%; z-index: 1000;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
-.topbar { top:0; }
-.bottombar { bottom:0; text-align:center; font-size:14px; justify-content: center; }
-
-.container { max-width:1000px; margin:100px auto 50px; padding:20px; }
-
-h2 { text-align:center; margin-bottom:20px; color:#1a3b5d; }
-
-.dashboard-grid { 
-    display:grid; grid-template-columns:repeat(auto-fit, minmax(250px,1fr)); 
-    gap:20px; 
-}
-
-.dash-card { 
-    background:white; padding:30px; border-radius:12px; 
-    text-align:center; box-shadow:0 2px 10px rgba(0,0,0,0.1); 
-    cursor:pointer; transition:0.3s; 
-}
-.dash-card:hover { transform:translateY(-5px); box-shadow:0 8px 20px rgba(0,0,0,0.15); }
-
-.dash-card a { color:#333; text-decoration:none; display: block; height: 100%; width: 100%; }
-
-.logo { font-size:24px; font-weight:bold; }
-.moto { font-style:italic; }
-
-.user-info a { color: #ccc; text-decoration: none; }
+.logo { font-size:24px; font-weight:bold; letter-spacing: 1px; }
+.user-info { font-size: 0.9rem; }
+.user-info a { color: #ddd; text-decoration: none; margin-left: 10px; cursor: pointer; }
 .user-info a:hover { color: white; text-decoration: underline; }
+
+/* --- LAYOUT --- */
+.container { max-width:1000px; margin:50px auto 80px; padding:20px; }
+
+/* Welcome Section */
+.welcome-banner { margin-bottom: 30px; text-align: center; }
+.welcome-banner h2 { color: #1a3b5d; font-size: 28px; }
+.welcome-banner p { color: #666; font-size: 16px; margin-top: 5px; }
+
+/* Grid */
+.dashboard-grid { 
+    display:grid; 
+    grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); 
+    gap:25px; 
+}
+
+/* --- CARD STYLING (FIXED) --- */
+.dash-card { 
+    background:white; 
+    padding:30px 20px; 
+    border-radius:15px; 
+    text-align:center; 
+    box-shadow:0 5px 15px rgba(0,0,0,0.05); 
+    cursor:pointer; 
+    transition: transform 0.3s, box-shadow 0.3s; 
+    border: 1px solid #eee;
+
+    /* KEY FIX: Removes blue link color and underline */
+    text-decoration: none !important; 
+    color: #333 !important; 
+    display: block; 
+}
+
+.dash-card:hover { 
+    transform:translateY(-5px); 
+    box-shadow:0 10px 25px rgba(0,0,0,0.1); 
+    border-color: #1a3b5d;
+    
+    /* Ensure no underline appears on hover either */
+    text-decoration: none !important;
+}
+
+/* Icons */
+.icon-box { 
+    font-size: 40px; margin-bottom: 15px; color: #1a3b5d;
+}
+
+/* Text inside cards */
+.dash-card h3 { font-size: 18px; margin-bottom: 8px; font-weight: 600; color: #1a3b5d; }
+.dash-card p { font-size: 14px; color: #777; }
+
+/* --- FOOTER (RESTORED) --- */
+.bottombar { 
+    background: #1a3b5d;  /* Dark Blue Background Restored */
+    color: white;         /* White Text */
+    padding: 15px; 
+    text-align: center; 
+    font-size: 14px; 
+    width: 100%;
+    
+    /* Keeps it at the bottom if page is short, or flows naturally if long */
+    position: fixed; 
+    bottom: 0; 
+    left: 0;
+}
