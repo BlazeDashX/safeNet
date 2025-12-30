@@ -1,0 +1,26 @@
+* { margin:0; padding:0; box-sizing:border-box; font-family:'Segoe UI',sans-serif; }
+body { background:#f0f2f5; color:#333; }
+
+/* Fixed Topbar */
+.topbar { background:#1a3b5d; color:white; padding:15px; display:flex; justify-content:space-between; align-items:center; position:fixed; width:100%; top:0; z-index:1000;}
+
+/* Fixed Bottombar (Centered) */
+.bottombar { 
+    background:#1a3b5d; color:white; padding:15px; 
+    position:fixed; bottom:0; width:100%; 
+    text-align:center; display:flex; justify-content:center; 
+}
+
+.container { max-width:800px; margin:100px auto 80px; padding:20px; }
+.card { background:white; padding:30px; border-radius:12px; box-shadow:0 4px 15px rgba(0,0,0,0.1); }
+h2 { text-align:center; margin-bottom:20px; color:#1a3b5d; }
+
+/* Inputs */
+label { font-weight: bold; font-size: 14px; margin-top: 15px; display: block; color: #555; }
+input, select, textarea { width:100%; padding:12px; margin:5px 0 15px 0; border:1px solid #ccc; border-radius:8px; }
+textarea { height:120px; resize: vertical; }
+
+button { background:#1a3b5d; color:white; padding:12px; border:none; border-radius:8px; cursor:pointer; width:100%; font-size:16px; margin-top:10px; }
+button:hover { background:#0f2840; }
+
+.logo { font-size:24px; font-weight:bold; }

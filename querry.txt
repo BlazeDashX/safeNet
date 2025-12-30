@@ -14,7 +14,19 @@ CREATE TABLE users (
 );
 
 
-/**   **/
+/** reports table  **/
+
+CREATE TABLE reports (
+    id INT(11) AUTO_INCREMENT PRIMARY KEY,
+    user_id INT(11) NOT NULL,
+    category VARCHAR(50) NOT NULL,
+    description TEXT NOT NULL,
+    evidence VARCHAR(255) DEFAULT NULL,
+    status VARCHAR(20) DEFAULT 'Pending', -- Pending, In Progress, Resolved
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+);
+
 /**   **/
 /**   **/
 /**   **/

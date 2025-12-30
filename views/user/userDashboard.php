@@ -39,11 +39,11 @@ if ($_SESSION['type'] === 'admin' || $_SESSION['type'] === 'consultant') {
         <p>File a new complaint</p>
       </a>
 
-      <div class="dash-card" onclick="alert('You have 0 active reports')">
+      <a href="../track_reports.php" class="dash-card">
         <div class="icon-box"><i class="fa-solid fa-clipboard-list"></i></div>
         <h3>Track Reports</h3>
         <p>Check status of complaints</p>
-      </div>
+      </a>
 
       <a href="../ai_chat.php" class="dash-card">
         <div class="icon-box"><i class="fa-solid fa-robot"></i></div>

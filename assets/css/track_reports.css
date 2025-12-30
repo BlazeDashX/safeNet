@@ -1,0 +1,39 @@
+* { margin:0; padding:0; box-sizing:border-box; font-family:'Segoe UI',sans-serif; }
+body { background:#f4f7f6; color:#333; }
+
+/* Topbar & Footer (Consistent) */
+.topbar { background:#1a3b5d; color:white; padding:15px; display:flex; justify-content:space-between; align-items:center; position:fixed; width:100%; top:0; z-index:1000;}
+
+.bottombar { 
+    background:#1a3b5d; color:white; padding:15px; 
+    position:fixed; bottom:0; width:100%; 
+    text-align:center; display:flex; justify-content:center; 
+}
+
+.container { max-width:1000px; margin:100px auto 80px; padding:20px; }
+h2 { text-align:center; margin-bottom:20px; color:#1a3b5d; }
+
+/* Card & Table */
+.card { background:white; padding:20px; border-radius:12px; box-shadow:0 4px 15px rgba(0,0,0,0.05); overflow-x: auto; }
+
+table { width:100%; border-collapse:collapse; min-width: 600px; }
+th { background:#f8f9fa; color:#555; font-weight:600; text-align:left; padding:15px; border-bottom:2px solid #eee; }
+td { padding:15px; border-bottom:1px solid #eee; color: #444; }
+tr:last-child td { border-bottom: none; }
+
+/* Status Badges */
+.status-badge { padding: 5px 12px; border-radius: 20px; font-size: 12px; font-weight: bold; text-transform: uppercase; }
+
+.status-badge.pending { background: #fff3cd; color: #856404; } /* Yellow */
+.status-badge.progress { background: #cce5ff; color: #004085; } /* Blue */
+.status-badge.resolved { background: #d4edda; color: #155724; } /* Green */
+
+/* View Button */
+.view-btn { color: #1a3b5d; text-decoration: none; font-weight: bold; }
+.view-btn:hover { text-decoration: underline; }
+
+/* Empty State */
+.empty-state { text-align: center; margin-top: 50px; color: #777; }
+.empty-state button { background:#1a3b5d; color:white; padding:10px 20px; border:none; border-radius:8px; cursor:pointer; margin-top: 15px;}
+
+.logo { font-size:24px; font-weight:bold; }
