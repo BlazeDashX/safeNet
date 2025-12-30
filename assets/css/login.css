@@ -1,11 +1,136 @@
+/* Reset and Base Font */
+* { 
+    margin: 0; 
+    padding: 0; 
+    box-sizing: border-box; 
+    font-family: 'Segoe UI', sans-serif; 
+}
 
-* { margin:0; padding:0; box-sizing:border-box; font-family:'Segoe UI',sans-serif; }
-body { background:#f0f2f5; color:#333; }
-.container { max-width:600px; margin:100px auto; padding:20px; }
-.card { background:white; padding:40px; border-radius:12px; box-shadow:0 4px 15px rgba(0,0,0,0.1); }
-h2 { text-align:center; margin-bottom:30px; color:#1a3b5d; }
-input, select { width:100%; padding:12px; margin:10px 0; border:1px solid #ccc; border-radius:8px; }
-button { background:#1a3b5d; color:white; padding:12px; border:none; border-radius:8px; cursor:pointer; width:100%; font-size:16px; margin-top:10px; }
-button:hover { background:#0f2840; }
-a { color:#1a3b5d; text-decoration:none; }
-a:hover { text-decoration:underline; }
+/* Page Background and Centering */
+body { 
+    background: #f0f2f5; 
+    color: #333; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh; /* Centers the card vertically */
+}
+
+/* Container Width */
+.container { 
+    width: 100%;
+    max-width: 450px; /* Standard login width */
+    padding: 20px; 
+}
+
+/* White Card Style */
+.card { 
+    background: white; 
+    padding: 40px; 
+    border-radius: 12px; 
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); 
+}
+
+/* Heading */
+h2 { 
+    text-align: center; 
+    margin-bottom: 30px; 
+    color: #1a3b5d; 
+}
+
+/* Form Group (Holds Label + Input + Error) */
+.form-group {
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+/* Labels (New Feature) */
+label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #444;
+    font-size: 14px;
+}
+
+/* Input Fields */
+input[type="text"], 
+input[type="password"] { 
+    width: 100%; 
+    padding: 12px; 
+    border: 1px solid #ccc; 
+    border-radius: 8px;
+    font-size: 14px;
+    transition: border-color 0.3s;
+}
+
+/* Input Focus Effect */
+input:focus {
+    border-color: #1a3b5d;
+    outline: none;
+    box-shadow: 0 0 5px rgba(26, 59, 93, 0.2);
+}
+
+/* Checkbox Group (Remember Me) */
+.checkbox-group {
+    margin-bottom: 20px;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+}
+
+.checkbox-group input {
+    margin-right: 8px;
+    width: auto; /* Overrides the 100% width from general input rule */
+    cursor: pointer;
+}
+
+.checkbox-group label {
+    margin: 0;
+    font-weight: 400;
+    cursor: pointer;
+    display: inline;
+}
+
+/* Button Styling */
+button { 
+    background: #1a3b5d; 
+    color: white; 
+    padding: 12px; 
+    border: none; 
+    border-radius: 8px; 
+    cursor: pointer; 
+    width: 100%; 
+    font-size: 16px; 
+    font-weight: 600;
+    transition: background 0.3s;
+}
+
+button:hover { 
+    background: #0f2840; 
+}
+
+/* Links Section */
+.links {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 14px;
+}
+
+a { 
+    color: #1a3b5d; 
+    text-decoration: none; 
+}
+
+a:hover { 
+    text-decoration: underline; 
+}
+
+/* Error Messages (The Red Text) */
+.error-msg {
+    color: #d93025; 
+    font-size: 12px;
+    display: none;
+    margin-top: 5px;
+    font-weight: 500;
+}
