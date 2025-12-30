@@ -52,13 +52,17 @@ document.getElementById("loginForm").addEventListener("submit", function (e) {
     .then(data => {
         if (data.status) {
             // Success: Redirect based on user type
-            // IMPORTANT: Redirecting to .php pages now
             const userType = data.user.type;
+            
+            // --- UPDATED PATHS FOR NEW FOLDER STRUCTURE ---
             if (userType === 'admin' || userType === 'consultant') {
-                window.location.href = 'admin_dashboard.php';
+                // Points to views/admin_consultant/adminDashboard.php
+                window.location.href = 'admin_consultant/adminDashboard.php'; 
             } else {
-                window.location.href = 'user_dashboard.php';
+                // Points to views/user/userDashboard.php
+                window.location.href = 'user/userDashboard.php';
             }
+            
         } else {
             // Failure: Show error in the general error box
             const generalError = document.getElementById('generalError');
