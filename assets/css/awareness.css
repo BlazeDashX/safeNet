@@ -1,0 +1,53 @@
+* { margin:0; padding:0; box-sizing:border-box; font-family:'Segoe UI',sans-serif; }
+body { background:#f4f7f6; color:#333; }
+
+/* Topbar & Footer */
+.topbar, .bottombar { 
+    background:#1a3b5d; color:white; padding:15px 30px; 
+    display:flex; align-items:center; position:fixed; width:100%; z-index: 1000;
+}
+.topbar { top:0; justify-content:space-between; }
+.bottombar { bottom:0; justify-content:center; text-align:center; font-size:14px; }
+
+/* Layout */
+.container { max-width:900px; margin:90px auto 80px; padding:20px; }
+h2 { text-align:center; color:#1a3b5d; margin-bottom: 5px; }
+.subtitle { text-align:center; color:#666; margin-bottom: 30px; }
+
+.section-title { 
+    font-size: 20px; font-weight: bold; color: #1a3b5d; 
+    margin-top: 40px; margin-bottom: 15px; border-bottom: 2px solid #eee; padding-bottom: 10px;
+}
+
+/* Video */
+.video-container { border-radius: 12px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+
+/* Grid Resources */
+.resource-grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(250px,1fr)); gap:20px; }
+
+.resource-card { 
+    background:white; padding:25px; border-radius:12px; 
+    text-align:center; box-shadow:0 2px 10px rgba(0,0,0,0.05); 
+    cursor:pointer; transition:0.3s; border: 1px solid #eee;
+}
+.resource-card:hover { transform:translateY(-5px); box-shadow:0 8px 20px rgba(0,0,0,0.15); border-color: #1a3b5d; }
+
+.icon-box { font-size: 30px; color: #1a3b5d; margin-bottom: 10px; }
+.resource-card h3 { font-size: 18px; margin-bottom: 5px; }
+.resource-card p { font-size: 13px; color: #666; }
+
+/* Quiz Section */
+.quiz-box { background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+.question { margin-bottom: 20px; }
+.question p { font-weight: bold; margin-bottom: 10px; }
+.question label { display: block; margin-bottom: 5px; cursor: pointer; }
+
+.quiz-btn { 
+    background:#1a3b5d; color:white; padding:10px 20px; 
+    border:none; border-radius:5px; cursor:pointer; font-size:16px; 
+}
+.quiz-btn:hover { background: #142f4c; }
+
+#quizResult { margin-top: 15px; font-weight: bold; font-size: 18px; }
+
+.logo { font-size:24px; font-weight:bold; }

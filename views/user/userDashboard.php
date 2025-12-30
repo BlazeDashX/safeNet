@@ -1,10 +1,16 @@
 <?php
 session_start();
+
+// 1. Security Check: If not logged in, go to login
 if (!isset($_SESSION['status']) || $_SESSION['status'] !== true) {
-    header("Location: ../../views/login.php"); exit;
+    header("Location: ../../views/login.php");
+    exit;
 }
+
+// 2. Role Check: If admin or consultant, send to ADMIN dashboard
 if ($_SESSION['type'] === 'admin' || $_SESSION['type'] === 'consultant') {
-    header("Location: ../admin_consultant/adminDashboard.php"); exit;
+    header("Location: ../admin_consultant/adminDashboard.php");
+    exit;
 }
 ?>
 <!DOCTYPE html>
