@@ -1,0 +1,28 @@
+/**user table**/
+
+CREATE TABLE users (
+    id INT(11) NOT NULL AUTO_INCREMENT,
+    name VARCHAR(100) NOT NULL,
+    username VARCHAR(50) NOT NULL UNIQUE,
+    email VARCHAR(100) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL,
+    gender VARCHAR(20) NOT NULL,
+    dob DATE NOT NULL,
+    type VARCHAR(20) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (id)
+);
+
+
+/**   **/
+/**   **/
+/**   **/
+/**   **/
+/**   **/
+/**   **/
+/**   **/
+/**   **/
+/**   **/
+/**   **/
+/**   **/
+/**   **/

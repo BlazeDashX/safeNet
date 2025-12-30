@@ -1,0 +1,11 @@
+
+* { margin:0; padding:0; box-sizing:border-box; font-family:'Segoe UI',sans-serif; }
+body { background:#f0f2f5; color:#333; }
+.container { max-width:600px; margin:100px auto; padding:20px; }
+.card { background:white; padding:40px; border-radius:12px; box-shadow:0 4px 15px rgba(0,0,0,0.1); }
+h2 { text-align:center; margin-bottom:30px; color:#1a3b5d; }
+input, select { width:100%; padding:12px; margin:10px 0; border:1px solid #ccc; border-radius:8px; }
+button { background:#1a3b5d; color:white; padding:12px; border:none; border-radius:8px; cursor:pointer; width:100%; font-size:16px; margin-top:10px; }
+button:hover { background:#0f2840; }
+a { color:#1a3b5d; text-decoration:none; }
+a:hover { text-decoration:underline; }
