@@ -3,13 +3,17 @@ session_start();
 
 // 1. Security Check: If not logged in, go to login
 if (!isset($_SESSION['status']) || $_SESSION['status'] !== true) {
-    header("Location: ../../views/login.php");
+    header("Location: ../login.php");
     exit;
 }
 
-// 2. Role Check: If admin or consultant, send to ADMIN dashboard
-if ($_SESSION['type'] === 'admin' || $_SESSION['type'] === 'consultant') {
+// 2. Role Check: Redirect Admins and Consultants to their correct pages
+if ($_SESSION['type'] === 'admin') {
     header("Location: ../admin_consultant/adminDashboard.php");
+    exit;
+}
+if ($_SESSION['type'] === 'consultant') {
+    header("Location: ../admin_consultant/consultantDashboard.php");
     exit;
 }
 ?>
@@ -20,6 +24,19 @@ if ($_SESSION['type'] === 'admin' || $_SESSION['type'] === 'consultant') {
   <title>User Dashboard - SAFENET</title>
   <link rel="stylesheet" href="../../assets/css/user_dashboard.css"/>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  
+  <style>
+    /* Simple fix to make the logout link look clickable */
+    .logout-btn {
+        cursor: pointer;
+        color: #e74c3c; /* Red color for logout */
+        text-decoration: none;
+        font-weight: bold;
+    }
+    .logout-btn:hover {
+        text-decoration: underline;
+    }
+  </style>
 </head>
 <body>
   
@@ -27,7 +44,8 @@ if ($_SESSION['type'] === 'admin' || $_SESSION['type'] === 'consultant') {
     <div class="logo">SAFENET</div>
     <div class="user-info">
       <span>Welcome, <b><?php echo htmlspecialchars($_SESSION['username']); ?></b></span> 
-      | <a id="logoutBtn">Logout</a>
+      
+      | <a href="../../controllers/logout.php" class="logout-btn"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
     </div>
   </header>
 

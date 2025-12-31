@@ -1,47 +1,72 @@
 <?php
+// 1. SILENCE WARNINGS (Crucial for JSON)
+error_reporting(0);
+ini_set('display_errors', 0);
+
+// 2. Start Buffer (Catches accidental spaces)
+ob_start();
+
 session_start();
-require_once dirname(__DIR__) . '/models/userModel.php';
+
+// Adjust this path if needed. 
+// If loginCheck.php is in 'controllers', and userModel is in 'models', use this:
+require_once '../models/userModel.php'; 
+
+// 3. Clean the Buffer (Deletes any warnings/spaces printed by included files)
+ob_clean();
+
 header('Content-Type: application/json');
 
-// 1. Get JSON input
+// --- START LOGIC ---
+
 $json = file_get_contents('php://input');
 $data = json_decode($json, true);
 
-// Check if data was actually received
 if (!$data) {
     echo json_encode(['status' => false, 'message' => 'No data received']);
     exit;
 }
 
-// 2. Safe Extraction (Prevent Undefined Index warnings)
 $identifier = $data['identifier'] ?? '';
 $password = $data['password'] ?? '';
 
-// 3. Server-side Validation
 if (empty($identifier) || empty($password)) {
     echo json_encode(['status' => false, 'message' => 'Both fields are required']);
     exit;
 }
 
-// 4. Check User in Database
-// (This function checks both Username AND Email)
+// Check user credentials
 $user = loginUser($identifier);
 
 if ($user && password_verify($password, $user['password'])) {
-    // 5. Login Successful - Set Session
+    
+    // Set Session
     $_SESSION['status'] = true;
     $_SESSION['user_id'] = $user['id'];
     $_SESSION['username'] = $user['username'];
-    $_SESSION['type'] = $user['type']; 
-    
-    // Return Success JSON with User Type for redirect logic
+    $_SESSION['type'] = $user['type'];
+
+    // CALCULATE REDIRECT URL
+    $redirectUrl = '../views/user/userDashboard.php'; // Default
+
+    if ($user['type'] === 'admin') {
+        $redirectUrl = '../views/admin_consultant/adminDashboard.php';
+    } 
+    elseif ($user['type'] === 'consultant') {
+        $redirectUrl = '../views/admin_consultant/consultantDashboard.php';
+    }
+
+    // Send Clean JSON
     echo json_encode([
         'status' => true, 
         'message' => 'Login successful', 
-        'user' => ['type' => $user['type']]
+        'redirect' => $redirectUrl 
     ]);
+
 } else {
-    // 6. Login Failed
-    echo json_encode(['status' => false, 'message' => 'Invalid username/email or password']);
+    echo json_encode(['status' => false, 'message' => 'Invalid credentials']);
 }
+
+// 4. Force Stop
+exit;
 ?>
