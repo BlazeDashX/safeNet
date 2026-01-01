@@ -3,7 +3,7 @@ session_start();
 if (!isset($_SESSION['status'])) { header("Location: login.php"); exit; }
 
 // Dynamic Back Link
-$backLink = ($_SESSION['type'] == 'admin') ? "admin_consultant/adminDashboard.php" : "user/userDashboard.php";
+$backLink = ($_SESSION['type'] == 'admin') ? "admin_consultant/adminDashboard.php" : "userDashboard.php";
 ?>
 <!DOCTYPE html>
 <html lang="en">

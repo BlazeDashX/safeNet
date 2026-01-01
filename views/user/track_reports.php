@@ -11,7 +11,7 @@ if (!isset($_SESSION['status']) || $_SESSION['status'] !== true) {
 $reports = getReportsByUserId($_SESSION['user_id']);
 
 // 3. Back Link Logic
-$backLink = ($_SESSION['type'] == 'admin') ? "admin_consultant/adminDashboard.php" : "user/userDashboard.php";
+$backLink = ($_SESSION['type'] == 'admin') ? "admin_consultant/adminDashboard.php" : "userDashboard.php";
 ?>
 
 <!DOCTYPE html>

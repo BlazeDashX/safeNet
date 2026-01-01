@@ -15,12 +15,33 @@ document.getElementById('registerForm').addEventListener('submit', function(e) {
     // Helper: Clear all previous errors
     document.querySelectorAll('.error-msg').forEach(el => el.style.display = 'none');
     
-    // Helper: Show error
+    // Helper: Clear visual errors from inputs
+    function clearInputErrors() {
+        // Clear red borders on all inputs/selects on submission attempt
+        document.querySelectorAll('input, select').forEach(el => el.classList.remove('error-border'));
+    }
+    
+    clearInputErrors(); // Clear borders first
+    
+    // Helper: Show error (Updated to add 'error-border' to input for consistency)
     function showError(fieldId, message) {
         const errorEl = document.getElementById(fieldId);
-        if(errorEl) {
+        
+        // Map error element ID to input element ID
+        let inputId = fieldId.replace('error-', 's');
+        if (fieldId === 'error-name') inputId = 'sName';
+        if (fieldId === 'error-dob') inputId = 'sDob';
+        // Add more mapping if needed, but the s[Field] pattern seems to work for most
+        
+        const inputEl = document.getElementById(inputId);
+        
+        if (errorEl) {
             errorEl.textContent = message;
             errorEl.style.display = 'block';
+            if (inputEl) {
+                // Adds the red border class defined in profile_edit.php's CSS
+                inputEl.classList.add('error-border');
+            }
         }
     }
 
@@ -31,27 +52,45 @@ document.getElementById('registerForm').addEventListener('submit', function(e) {
     if (name === "") { showError('error-name', "Name is required"); isValid = false; }
     if (username === "") { showError('error-username', "Username is required"); isValid = false; }
     
-    // --- EMAIL VALIDATION (NEW) ---
-    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Simple standard email regex
+    // Email Validation
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; 
     
     if (email === "") { 
         showError('error-email', "Email is required"); 
         isValid = false; 
     } else if (!emailPattern.test(email)) {
-        // This runs if email is NOT valid (e.g., "aa" or "aa@")
         showError('error-email', "Invalid email format (e.g., user@mail.com)");
         isValid = false;
     }
 
     if (gender === "") { showError('error-gender', "Select a gender"); isValid = false; }
-    if (dob === "") { showError('error-dob', "Date of birth required"); isValid = false; }
     
-    // Password Checks
+    // DOB Validation (Age 14+) - LOGIC ALIGNED WITH profile_edit.js
+    if (dob === "") { 
+        showError('error-dob', "Date of birth required"); 
+        isValid = false; 
+    } else {
+        const dobDate = new Date(dob);
+        const today = new Date();
+        let age = today.getFullYear() - dobDate.getFullYear();
+        const m = today.getMonth() - dobDate.getMonth();
+        
+        if (m < 0 || (m === 0 && today.getDate() < dobDate.getDate())) {
+            age--;
+        }
+        
+        if (age < 14) {
+            showError('error-dob', "You must be at least 14 years old");
+            isValid = false;
+        }
+    }
+    
+    // Password Checks - LENGTH ALIGNED WITH change_password.js (8 chars)
     if (password === "") { 
         showError('error-password', "Password required"); 
         isValid = false; 
-    } else if (password.length < 4) {
-        showError('error-password', "Password must be 4+ chars");
+    } else if (password.length < 8) { 
+        showError('error-password', "Password must be at least 8 characters");
         isValid = false;
     }
 
