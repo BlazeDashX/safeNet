@@ -10,7 +10,7 @@ if (!isset($_SESSION['status']) || $_SESSION['type'] != 'consultant') {
 
 $con = getConnection();
 
-// 2. Fetch Stats specific to Reports (Consultants don't need User stats)
+// 2. Fetch Stats specific to Reports
 $pendingQuery = "SELECT COUNT(*) as count FROM reports WHERE status = 'Pending'";
 $resolvedQuery = "SELECT COUNT(*) as count FROM reports WHERE status = 'Resolved'";
 
@@ -36,6 +36,7 @@ $resolvedRes = $con->query($resolvedQuery)->fetch_assoc();
             <li class="active"><a href="consultantDashboard.php"><i class="fa-solid fa-gauge"></i> Dashboard</a></li>
             <li><a href="manage_reports.php"><i class="fa-solid fa-file-shield"></i> Incident Reports</a></li>
             <li><a href="../profile.php"><i class="fa-solid fa-user-gear"></i> My Profile</a></li>
+            <li><a href="../change_password.php"><i class="fa-solid fa-key"></i> Change Password</a></li>
             <li class="logout-link"><a href="../../controllers/logout.php"><i class="fa-solid fa-right-from-bracket"></i> Logout</a></li>
         </ul>
     </nav>

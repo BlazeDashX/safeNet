@@ -10,7 +10,7 @@ $backLink = ($_SESSION['type'] == 'admin') ? "admin_consultant/adminDashboard.ph
 <head>
   <meta charset="UTF-8" />
   <title>SAFENET - Report Incident</title>
-  <link rel="stylesheet" href="../assets/css/report.css"/>
+  <link rel="stylesheet" href="../../assets/css/report.css"/>
   <link rel="icon" href="https://img.icons8.com/fluency/48/shield.png"/>
 </head>
 <body>
@@ -58,6 +58,6 @@ $backLink = ($_SESSION['type'] == 'admin') ? "admin_consultant/adminDashboard.ph
     © 2025 SAFENET by AIUB CS Students | All Rights Reserved
   </footer>
 
-  <script src="../assets/js/report.js"></script>
+  <script src="../../assets/js/report.js"></script>
 </body>
 </html>

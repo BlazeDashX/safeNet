@@ -7,13 +7,19 @@ if (!isset($_SESSION['status']) || $_SESSION['status'] !== true) {
     exit;
 }
 
-// 2. Dynamic Back Button Logic
-// If Admin/Consultant -> Go to Admin Dashboard
-// If User -> Go to User Dashboard
+// 2. Dynamic Back Button Logic (FIXED)
 $backLink = "";
-if ($_SESSION['type'] === 'admin' || $_SESSION['type'] === 'consultant') {
+
+if ($_SESSION['type'] === 'admin') {
+    // Admin Path
     $backLink = "admin_consultant/adminDashboard.php";
-} else {
+} 
+elseif ($_SESSION['type'] === 'consultant') {
+    // Consultant Path
+    $backLink = "admin_consultant/consultantDashboard.php";
+} 
+else {
+    // User Path
     $backLink = "user/userDashboard.php";
 }
 ?>

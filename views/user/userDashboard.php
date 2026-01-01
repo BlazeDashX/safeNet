@@ -57,13 +57,13 @@ if ($_SESSION['type'] === 'consultant') {
 
     <div class="dashboard-grid">
       
-      <a href="../report.php" class="dash-card">
+      <a href="report.php" class="dash-card">
         <div class="icon-box"><i class="fa-solid fa-shield-alt"></i></div>
         <h3>Report Incident</h3>
         <p>File a new complaint</p>
       </a>
 
-      <a href="../track_reports.php" class="dash-card">
+      <a href="track_reports.php" class="dash-card">
         <div class="icon-box"><i class="fa-solid fa-clipboard-list"></i></div>
         <h3>Track Reports</h3>
         <p>Check status of complaints</p>

@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once '../models/reportModel.php';
+require_once '../../models/reportModel.php';
 
 // 1. Security Check
 if (!isset($_SESSION['status']) || $_SESSION['status'] !== true) {
@@ -19,7 +19,7 @@ $backLink = ($_SESSION['type'] == 'admin') ? "admin_consultant/adminDashboard.ph
 <head>
   <meta charset="UTF-8" />
   <title>SAFENET - Track Reports</title>
-  <link rel="stylesheet" href="../assets/css/track_reports.css"/>
+  <link rel="stylesheet" href="../../assets/css/track_reports.css"/>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
   <link rel="icon" href="https://img.icons8.com/fluency/48/shield.png"/>
 </head>

@@ -19,22 +19,13 @@ CREATE TABLE users (
 CREATE TABLE reports (
     id INT(11) AUTO_INCREMENT PRIMARY KEY,
     user_id INT(11) NOT NULL,
-    category VARCHAR(50) NOT NULL,
     description TEXT NOT NULL,
+    relationship ENUM('Friend', 'Stranger', 'Family', 'Other') NOT NULL,
+    type ENUM('Harassment', 'Threats', 'Doxxing', 'Hate Speech') NOT NULL,
     evidence VARCHAR(255) DEFAULT NULL,
-    status VARCHAR(20) DEFAULT 'Pending', -- Pending, In Progress, Resolved
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+    status ENUM('Pending', 'In Progress', 'Resolved') DEFAULT 'Pending',
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    INDEX (user_id), -- Speeds up searching by user
+    INDEX (status)   -- Speeds up admin filtering
 );
-
-/**   **/
-/**   **/
-/**   **/
-/**   **/
-/**   **/
-/**   **/
-/**   **/
-/**   **/
-/**   **/
-/**   **/
-/**   **/

@@ -36,6 +36,7 @@ $result = $con->query($sql);
             <li><a href="manage_reports.php"><i class="fa-solid fa-file-shield"></i> Incident Reports</a></li>
             <li class="active"><a href="manage_users.php"><i class="fa-solid fa-users"></i> User Management</a></li>
             <li><a href="../profile.php"><i class="fa-solid fa-user-gear"></i> My Profile</a></li>
+            <li><a href="../change_password.php"><i class="fa-solid fa-key"></i> Change Password</a></li>
             <li class="logout-link"><a href="../../controllers/logout.php"><i class="fa-solid fa-right-from-bracket"></i> Logout</a></li>
         </ul>
     </nav>
