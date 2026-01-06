@@ -1,26 +1,22 @@
 <?php
 session_start();
 
-// 1. Security Check
+// 1. Security Check: Redirect if not logged in
 if (!isset($_SESSION['status']) || $_SESSION['status'] !== true) {
     header("Location: login.php");
     exit;
 }
 
-// 2. Dynamic Back Button Logic (FIXED)
+// 2. Dynamic Back Button Logic
 $backLink = "";
-
 if ($_SESSION['type'] === 'admin') {
-    // Admin Path
-    $backLink = "admin_consultant/adminDashboard.php";
+    $backLink = "admin_consultant/adminDashboard.php";       // Admin dashboard
 } 
 elseif ($_SESSION['type'] === 'consultant') {
-    // Consultant Path
-    $backLink = "admin_consultant/consultantDashboard.php";
+    $backLink = "admin_consultant/consultantDashboard.php"; // Consultant dashboard
 } 
 else {
-    // User Path
-    $backLink = "user/userDashboard.php";
+    $backLink = "user/userDashboard.php";                  // Regular user dashboard
 }
 ?>
 
@@ -30,15 +26,19 @@ else {
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>SAFENET - View Profile</title>
+
+  <!-- CSS -->
   <link rel="stylesheet" href="../assets/css/profile_view.css"/>
   <link rel="icon" href="https://img.icons8.com/fluency/48/shield.png"/>
 </head>
 <body>
 
+  <!-- Header -->
   <header class="topbar">
     <div class="logo">SAFENET</div>
     <div class="moto">Report. Protect. Educate.</div>
     <div class="user-info">
+        <!-- Back button -->
         <a href="<?php echo $backLink; ?>" style="color: white; text-decoration: underline; font-weight: bold;">
             &larr; Back to Dashboard
         </a>
@@ -47,11 +47,13 @@ else {
   
   <div class="container">
     <h2>My Profile</h2>
+
+    <!-- Profile Details -->
     <div class="card">
       <table id="profileTable">
         <tr>
             <td class="label-col">Full Name</td>
-            <td id="pName">Loading...</td>
+            <td id="pName">Loading...</td> <!-- Filled via JS -->
         </tr>
         <tr>
             <td class="label-col">Username</td>
@@ -75,14 +77,17 @@ else {
         </tr>
       </table>
       
+      <!-- Edit button -->
       <button onclick="window.location.href='profile_edit.php'">Edit Profile</button>
     </div>
   </div>
 
+  <!-- Footer -->
   <footer class="bottombar">
     © 2025 SAFENET by AIUB CS Students | All Rights Reserved
   </footer>
 
+  <!-- JS -->
   <script src="../assets/js/profile_view.js"></script>
 </body>
 </html>
