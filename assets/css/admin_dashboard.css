@@ -1,3 +1,4 @@
+/* Root variables */
 :root {
     --sidebar-width: 260px;
     --primary-dark: #1a2a3a;
@@ -5,11 +6,22 @@
     --bg-light: #f4f7f6;
 }
 
-* { margin:0; padding:0; box-sizing:border-box; font-family:'Segoe UI', sans-serif; }
+/* Global reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', sans-serif;
+}
 
-.admin-body { display: flex; background: var(--bg-light); min-height: 100vh; }
+/* Main layout */
+.admin-body {
+    display: flex;
+    background: var(--bg-light);
+    min-height: 100vh;
+}
 
-/* Sidebar */
+/* Sidebar layout */
 .sidebar {
     width: var(--sidebar-width);
     background: var(--primary-dark);
@@ -19,29 +31,131 @@
     padding: 20px 0;
 }
 
-.sidebar-header { text-align: center; padding-bottom: 30px; border-bottom: 1px solid #2c3e50; }
-.role-badge { font-size: 10px; background: var(--accent-blue); padding: 2px 8px; border-radius: 4px; }
+/* Sidebar header */
+.sidebar-header {
+    text-align: center;
+    padding-bottom: 30px;
+    border-bottom: 1px solid #2c3e50;
+}
 
-.nav-links { list-style: none; margin-top: 20px; }
-.nav-links li { padding: 15px 25px; transition: 0.3s; }
-.nav-links li a { color: #bdc3c7; text-decoration: none; display: flex; align-items: center; gap: 15px; }
-.nav-links li:hover, .nav-links li.active { background: #2c3e50; }
-.nav-links li.active a { color: white; font-weight: bold; }
-.logout-link { margin-top: 50px; border-top: 1px solid #2c3e50; }
+/* Role badge */
+.role-badge {
+    font-size: 10px;
+    background: var(--accent-blue);
+    padding: 2px 8px;
+    border-radius: 4px;
+}
 
-/* Content Area */
-.main-content { margin-left: var(--sidebar-width); flex: 1; padding: 40px; }
-.content-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; }
-.user-pill { background: white; padding: 8px 20px; border-radius: 20px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+/* Navigation list */
+.nav-links {
+    list-style: none;
+    margin-top: 20px;
+}
 
-/* Stats Cards */
-.stats-container { display: grid; grid-template-columns: repeat(3, 1fr); gap: 25px; margin-bottom: 30px; }
-.stat-card { background: white; padding: 30px; border-radius: 12px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 4px 15px rgba(0,0,0,0.05); border-left: 5px solid #ccc; }
-.stat-card h3 { font-size: 32px; color: #1a2a3a; }
+/* Navigation item */
+.nav-links li {
+    padding: 15px 25px;
+    transition: 0.3s;
+}
+
+/* Navigation link */
+.nav-links li a {
+    color: #bdc3c7;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+/* Hover & active state */
+.nav-links li:hover,
+.nav-links li.active {
+    background: #2c3e50;
+}
+
+/* Active link */
+.nav-links li.active a {
+    color: white;
+    font-weight: bold;
+}
+
+/* Logout section */
+.logout-link {
+    margin-top: 50px;
+    border-top: 1px solid #2c3e50;
+}
+
+/* Main content */
+.main-content {
+    margin-left: var(--sidebar-width);
+    flex: 1;
+    padding: 40px;
+}
+
+/* Content header */
+.content-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+/* User info pill */
+.user-pill {
+    background: white;
+    padding: 8px 20px;
+    border-radius: 20px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+/* Stats layout */
+.stats-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+    margin-bottom: 30px;
+}
+
+/* Stat card */
+.stat-card {
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    border-left: 5px solid #ccc;
+}
+
+/* Stat value */
+.stat-card h3 {
+    font-size: 32px;
+    color: #1a2a3a;
+}
+
+/* Card states */
 .stat-card.pending { border-left-color: #e74c3c; }
 .stat-card.reports { border-left-color: #3498db; }
 .stat-card.users { border-left-color: #2ecc71; }
-.stat-card i { font-size: 40px; opacity: 0.2; }
 
-.card { background: white; padding: 25px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
-.card-header { margin-bottom: 15px; border-bottom: 1px solid #eee; padding-bottom: 10px; }
+/* Card icon */
+.stat-card i {
+    font-size: 40px;
+    opacity: 0.2;
+}
+
+/* Generic card */
+.card {
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+}
+
+/* Card header */
+.card-header {
+    margin-bottom: 15px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 10px;
+}

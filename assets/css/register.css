@@ -1,39 +1,50 @@
-* { margin:0; padding:0; box-sizing:border-box; font-family:'Segoe UI',sans-serif; }
+/* Global reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', sans-serif;
+}
 
-body { 
-    background:#f0f2f5; 
-    color:#333; 
+/* Base styles */
+body {
+    background: #f0f2f5;
+    color: #333;
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
 }
 
-.container { 
+/* Page container */
+.container {
     width: 100%;
-    max-width: 500px; 
-    padding: 20px; 
+    max-width: 500px;
+    padding: 20px;
 }
 
-.card { 
-    background:white; 
-    padding: 40px; 
-    border-radius:12px; 
-    box-shadow:0 4px 15px rgba(0,0,0,0.1); 
+/* Card layout */
+.card {
+    background: white;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
 }
 
-h2 { 
-    text-align:center; 
-    margin-bottom:30px; 
-    color:#1a3b5d; 
+/* Heading */
+h2 {
+    text-align: center;
+    margin-bottom: 30px;
+    color: #1a3b5d;
 }
 
-/* New Form Group Styling */
+/* Form group */
 .form-group {
     margin-bottom: 15px;
-    text-align: left; /* Ensures labels stay left */
+    text-align: left;
 }
 
+/* Labels */
 label {
     display: block;
     margin-bottom: 5px;
@@ -42,45 +53,61 @@ label {
     font-size: 14px;
 }
 
-input, select { 
-    width:100%; 
-    padding:10px; 
-    border:1px solid #ccc; 
-    border-radius:6px;
+/* Inputs & Select */
+input,
+select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
     font-size: 14px;
 }
 
-input:focus, select:focus {
+/* Input focus */
+input:focus,
+select:focus {
     border-color: #1a3b5d;
     outline: none;
 }
 
-button { 
-    background:#1a3b5d; 
-    color:white; 
-    padding:12px; 
-    border:none; 
-    border-radius:8px; 
-    cursor:pointer; 
-    width:100%; 
-    font-size:16px; 
-    margin-top:20px; 
+/* Primary button */
+button {
+    background: #1a3b5d;
+    color: white;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    width: 100%;
+    font-size: 16px;
+    margin-top: 20px;
 }
 
-button:hover { background:#0f2840; }
+/* Button hover */
+button:hover {
+    background: #0f2840;
+}
 
+/* Login link */
 .login-link {
     text-align: center;
     margin-top: 15px;
 }
 
-a { color:#1a3b5d; text-decoration:none; }
-a:hover { text-decoration:underline; }
+/* Anchor links */
+a {
+    color: #1a3b5d;
+    text-decoration: none;
+}
 
-/* Error Message Styling */
+a:hover {
+    text-decoration: underline;
+}
+
+/* Error messages */
 .error-msg {
-    color: #d93025; /* Standard Error Red */
+    color: #d93025;
     font-size: 12px;
-    display: none; /* Hidden by default */
+    display: none;
     margin-top: 5px;
 }

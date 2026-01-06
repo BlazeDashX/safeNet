@@ -1,6 +1,4 @@
-/* =========================================
-   1. GLOBAL VARIABLES & LAYOUT (From your Sidebar Design)
-   ========================================= */
+/* Root variables */
 :root {
     --sidebar-width: 260px;
     --primary-dark: #1a2a3a;
@@ -8,17 +6,23 @@
     --bg-light: #f4f7f6;
 }
 
-* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
-
-body, .admin-body { 
-    display: flex; 
-    background: var(--bg-light); 
-    min-height: 100vh; 
+/* Global reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', sans-serif;
 }
 
-/* =========================================
-   2. SIDEBAR STYLES (Preserved from your code)
-   ========================================= */
+/* Base layout */
+body,
+.admin-body {
+    display: flex;
+    background: var(--bg-light);
+    min-height: 100vh;
+}
+
+/* Sidebar */
 .sidebar {
     width: var(--sidebar-width);
     background: var(--primary-dark);
@@ -26,66 +30,90 @@ body, .admin-body {
     position: fixed;
     height: 100%;
     padding: 20px 0;
-    z-index: 100; /* Ensure sidebar stays below the modal */
+    z-index: 100;
 }
 
-.sidebar-header { 
-    text-align: center; 
-    padding-bottom: 30px; 
-    border-bottom: 1px solid #2c3e50; 
+/* Sidebar header */
+.sidebar-header {
+    text-align: center;
+    padding-bottom: 30px;
+    border-bottom: 1px solid #2c3e50;
 }
 
-.role-badge { 
-    font-size: 10px; 
-    background: var(--accent-blue); 
-    padding: 2px 8px; 
-    border-radius: 4px; 
+/* Role badge */
+.role-badge {
+    font-size: 10px;
+    background: var(--accent-blue);
+    padding: 2px 8px;
+    border-radius: 4px;
     color: white;
     font-weight: bold;
 }
 
-.nav-links { list-style: none; margin-top: 20px; }
-.nav-links li { padding: 0; transition: 0.3s; }
+/* Navigation */
+.nav-links {
+    list-style: none;
+    margin-top: 20px;
+}
 
-.nav-links li a { 
-    color: #bdc3c7; 
-    text-decoration: none; 
-    display: flex; 
-    align-items: center; 
-    gap: 15px; 
-    padding: 15px 25px; /* Moved padding here for better click area */
+.nav-links li {
+    padding: 0;
+    transition: 0.3s;
+}
+
+.nav-links li a {
+    color: #bdc3c7;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 15px 25px;
     width: 100%;
 }
 
-.nav-links li:hover, .nav-links li.active { background: #2c3e50; }
-.nav-links li.active a { color: white; font-weight: bold; }
-
-.logout-link { margin-top: 50px; border-top: 1px solid #2c3e50; }
-
-/* =========================================
-   3. MAIN CONTENT AREA
-   ========================================= */
-.main-content { 
-    margin-left: var(--sidebar-width); 
-    flex: 1; 
-    padding: 40px; 
-    width: calc(100% - var(--sidebar-width)); /* Prevent overflow */
+/* Nav states */
+.nav-links li:hover,
+.nav-links li.active {
+    background: #2c3e50;
 }
 
-.content-header { 
-    display: flex; 
-    justify-content: space-between; 
-    align-items: center; 
-    margin-bottom: 30px; 
+.nav-links li.active a {
+    color: white;
+    font-weight: bold;
 }
 
-.content-header h2 { color: var(--primary-dark); }
+/* Logout link */
+.logout-link {
+    margin-top: 50px;
+    border-top: 1px solid #2c3e50;
+}
 
-.user-pill { 
-    background: white; 
-    padding: 8px 20px; 
-    border-radius: 20px; 
-    box-shadow: 0 2px 5px rgba(0,0,0,0.05); 
+/* Main content */
+.main-content {
+    margin-left: var(--sidebar-width);
+    flex: 1;
+    padding: 40px;
+    width: calc(100% - var(--sidebar-width));
+}
+
+/* Header section */
+.content-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.content-header h2 {
+    color: var(--primary-dark);
+}
+
+/* User badge */
+.user-pill {
+    background: white;
+    padding: 8px 20px;
+    border-radius: 20px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
     display: flex;
     align-items: center;
     gap: 10px;
@@ -93,15 +121,14 @@ body, .admin-body {
     color: #555;
 }
 
-/* =========================================
-   4. REPORT GRID & CARDS (The Incident List)
-   ========================================= */
+/* Report grid */
 .report-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     gap: 25px;
 }
 
+/* Report card */
 .report-card {
     background: white;
     border-radius: 12px;
@@ -116,7 +143,7 @@ body, .admin-body {
     transform: translateY(-5px);
 }
 
-/* Card Image Area */
+/* Card image */
 .card-image {
     height: 160px;
     background: #eef2f5;
@@ -132,6 +159,7 @@ body, .admin-body {
     cursor: pointer;
 }
 
+/* Image placeholder */
 .no-image-placeholder {
     display: flex;
     align-items: center;
@@ -141,6 +169,7 @@ body, .admin-body {
     font-size: 14px;
 }
 
+/* Category tag */
 .category-tag {
     position: absolute;
     bottom: 10px;
@@ -153,9 +182,15 @@ body, .admin-body {
     text-transform: uppercase;
 }
 
-/* Card Body */
-.card-content { padding: 20px; flex: 1; display: flex; flex-direction: column; }
+/* Card body */
+.card-content {
+    padding: 20px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
 
+/* Card meta */
 .card-meta {
     display: flex;
     justify-content: space-between;
@@ -165,42 +200,49 @@ body, .admin-body {
     font-weight: bold;
 }
 
+/* Status badge */
 .status-badge {
     padding: 3px 8px;
     border-radius: 4px;
     font-size: 10px;
     text-transform: uppercase;
 }
+
 .status-pending { background: #ffeeba; color: #856404; }
 .status-resolved { background: #d4edda; color: #155724; }
 
+/* Card title */
 .card-content h3 {
-    margin: 0 0 10px 0;
+    margin-bottom: 10px;
     font-size: 16px;
     color: var(--primary-dark);
 }
 
+/* Description */
 .description-container {
     font-size: 13px;
     color: #666;
     line-height: 1.5;
     margin-bottom: 20px;
-    flex-grow: 1; /* Pushes button to bottom */
+    flex-grow: 1;
 }
 
+/* Read more */
 .read-more-link {
     color: var(--accent-blue);
     font-weight: bold;
     cursor: pointer;
     text-decoration: underline;
     font-size: 12px;
-    display: inline-block;
     margin-top: 5px;
 }
 
-/* Action Buttons */
-.card-actions { margin-top: auto; }
+/* Card actions */
+.card-actions {
+    margin-top: auto;
+}
 
+/* Resolve button */
 .btn-resolve {
     width: 100%;
     padding: 10px;
@@ -213,8 +255,11 @@ body, .admin-body {
     transition: 0.2s;
 }
 
-.btn-resolve:hover { background: #2c3e50; }
+.btn-resolve:hover {
+    background: #2c3e50;
+}
 
+/* Resolved text */
 .resolved-text {
     text-align: center;
     color: #27ae60;
@@ -222,41 +267,37 @@ body, .admin-body {
     padding: 10px;
 }
 
-/* =========================================
-   5. POPUP / MODAL (The Fix)
-   ========================================= */
-
-/* The Backdrop */
+/* Modal backdrop */
 dialog::backdrop {
     background-color: rgba(0, 0, 0, 0.6);
     backdrop-filter: blur(2px);
 }
 
-/* The Modal Box */
+/* Modal box */
 dialog.modal {
     position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     margin: 0;
-
     width: 600px;
     max-width: 90%;
     max-height: 85vh;
-    
     background: #ffffff;
     border: none;
     border-radius: 12px;
     box-shadow: 0 20px 50px rgba(0,0,0,0.5);
     padding: 0;
-    z-index: 10000; /* Higher than sidebar */
-    display: block; /* Required for transform to work on open */
+    z-index: 10000;
+    display: block;
 }
 
-/* Hide when not open */
-dialog:not([open]) { display: none; }
+/* Hidden dialog */
+dialog:not([open]) {
+    display: none;
+}
 
-/* Modal Header */
+/* Modal header */
 dialog.modal h3 {
     margin: 0;
     padding: 20px;
@@ -267,7 +308,7 @@ dialog.modal h3 {
     border-bottom: 1px solid #eee;
 }
 
-/* Modal Body */
+/* Modal body */
 .modal-body {
     padding: 25px;
     font-size: 15px;
@@ -278,7 +319,7 @@ dialog.modal h3 {
     white-space: pre-wrap;
 }
 
-/* Close Button */
+/* Close button */
 .modal-btn-close {
     width: 100%;
     padding: 15px;
@@ -292,4 +333,6 @@ dialog.modal h3 {
     transition: 0.2s;
 }
 
-.modal-btn-close:hover { background-color: #c0392b; }
+.modal-btn-close:hover {
+    background-color: #c0392b;
+}

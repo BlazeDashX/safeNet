@@ -1,78 +1,136 @@
-* { margin:0; padding:0; box-sizing:border-box; font-family:'Segoe UI',sans-serif; }
-body { background:#f4f7f6; color:#333; }
+/* Global reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+/* Base body */
+body {
+    background: #f4f7f6;
+    color: #333;
+}
 
 /* --- TOPBAR --- */
-.topbar { 
-    background:#1a3b5d; color:white; padding:15px 30px; 
-    display:flex; justify-content:space-between; align-items:center; 
+.topbar {
+    background: #1a3b5d;
+    color: white;
+    padding: 15px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
-.logo { font-size:24px; font-weight:bold; letter-spacing: 1px; }
-.user-info { font-size: 0.9rem; }
-.user-info a { color: #ddd; text-decoration: none; margin-left: 10px; cursor: pointer; }
-.user-info a:hover { color: white; text-decoration: underline; }
 
-/* --- LAYOUT --- */
-.container { max-width:1000px; margin:50px auto 80px; padding:20px; }
+/* Logo text */
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+/* User info */
+.user-info {
+    font-size: 0.9rem;
+}
+
+.user-info a {
+    color: #ddd;
+    text-decoration: none;
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+.user-info a:hover {
+    color: white;
+    text-decoration: underline;
+}
+
+/* --- Layout Container --- */
+.container {
+    max-width: 1000px;
+    margin: 50px auto 80px;
+    padding: 20px;
+}
 
 /* Welcome Section */
-.welcome-banner { margin-bottom: 30px; text-align: center; }
-.welcome-banner h2 { color: #1a3b5d; font-size: 28px; }
-.welcome-banner p { color: #666; font-size: 16px; margin-top: 5px; }
-
-/* Grid */
-.dashboard-grid { 
-    display:grid; 
-    grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); 
-    gap:25px; 
+.welcome-banner {
+    margin-bottom: 30px;
+    text-align: center;
 }
 
-/* --- CARD STYLING (FIXED) --- */
-.dash-card { 
-    background:white; 
-    padding:30px 20px; 
-    border-radius:15px; 
-    text-align:center; 
-    box-shadow:0 5px 15px rgba(0,0,0,0.05); 
-    cursor:pointer; 
-    transition: transform 0.3s, box-shadow 0.3s; 
+.welcome-banner h2 {
+    color: #1a3b5d;
+    font-size: 28px;
+}
+
+.welcome-banner p {
+    color: #666;
+    font-size: 16px;
+    margin-top: 5px;
+}
+
+/* Grid for dashboard cards */
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+}
+
+/* --- Cards --- */
+.dash-card {
+    background: white;
+    padding: 30px 20px;
+    border-radius: 15px;
+    text-align: center;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    cursor: pointer;
+    transition: transform 0.3s, box-shadow 0.3s;
     border: 1px solid #eee;
 
-    /* KEY FIX: Removes blue link color and underline */
-    text-decoration: none !important; 
-    color: #333 !important; 
-    display: block; 
+    /* Remove link styling */
+    text-decoration: none !important;
+    color: #333 !important;
+    display: block;
 }
 
-.dash-card:hover { 
-    transform:translateY(-5px); 
-    box-shadow:0 10px 25px rgba(0,0,0,0.1); 
+.dash-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
     border-color: #1a3b5d;
-    
-    /* Ensure no underline appears on hover either */
     text-decoration: none !important;
 }
 
-/* Icons */
-.icon-box { 
-    font-size: 40px; margin-bottom: 15px; color: #1a3b5d;
+/* Card icons */
+.icon-box {
+    font-size: 40px;
+    margin-bottom: 15px;
+    color: #1a3b5d;
 }
 
-/* Text inside cards */
-.dash-card h3 { font-size: 18px; margin-bottom: 8px; font-weight: 600; color: #1a3b5d; }
-.dash-card p { font-size: 14px; color: #777; }
+/* Card text */
+.dash-card h3 {
+    font-size: 18px;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #1a3b5d;
+}
 
-/* --- FOOTER (RESTORED) --- */
-.bottombar { 
-    background: #1a3b5d;  /* Dark Blue Background Restored */
-    color: white;         /* White Text */
-    padding: 15px; 
-    text-align: center; 
-    font-size: 14px; 
+.dash-card p {
+    font-size: 14px;
+    color: #777;
+}
+
+/* --- FOOTER --- */
+.bottombar {
+    background: #1a3b5d;
+    color: white;
+    padding: 15px;
+    text-align: center;
+    font-size: 14px;
     width: 100%;
-    
-    /* Keeps it at the bottom if page is short, or flows naturally if long */
-    position: fixed; 
-    bottom: 0; 
+    position: fixed;
+    bottom: 0;
     left: 0;
 }

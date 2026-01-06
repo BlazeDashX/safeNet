@@ -1,4 +1,4 @@
-/* Reset and Base Font */
+/* Global reset */
 * { 
     margin: 0; 
     padding: 0; 
@@ -6,24 +6,24 @@
     font-family: 'Segoe UI', sans-serif; 
 }
 
-/* Page Background and Centering */
+/* Page layout */
 body { 
     background: #f0f2f5; 
     color: #333; 
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 100vh; /* Centers the card vertically */
+    min-height: 100vh;
 }
 
-/* Container Width */
+/* Main container */
 .container { 
     width: 100%;
-    max-width: 450px; /* Standard login width */
+    max-width: 450px;
     padding: 20px; 
 }
 
-/* White Card Style */
+/* Card layout */
 .card { 
     background: white; 
     padding: 40px; 
@@ -31,20 +31,20 @@ body {
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); 
 }
 
-/* Heading */
+/* Page heading */
 h2 { 
     text-align: center; 
     margin-bottom: 30px; 
     color: #1a3b5d; 
 }
 
-/* Form Group (Holds Label + Input + Error) */
+/* Form group */
 .form-group {
     margin-bottom: 20px;
     text-align: left;
 }
 
-/* Labels (New Feature) */
+/* Input label */
 label {
     display: block;
     margin-bottom: 8px;
@@ -53,7 +53,7 @@ label {
     font-size: 14px;
 }
 
-/* Input Fields */
+/* Text inputs */
 input[type="text"], 
 input[type="password"] { 
     width: 100%; 
@@ -64,14 +64,14 @@ input[type="password"] {
     transition: border-color 0.3s;
 }
 
-/* Input Focus Effect */
+/* Focus state */
 input:focus {
     border-color: #1a3b5d;
     outline: none;
     box-shadow: 0 0 5px rgba(26, 59, 93, 0.2);
 }
 
-/* Checkbox Group (Remember Me) */
+/* Checkbox section */
 .checkbox-group {
     margin-bottom: 20px;
     font-size: 14px;
@@ -79,12 +79,14 @@ input:focus {
     align-items: center;
 }
 
+/* Checkbox input */
 .checkbox-group input {
     margin-right: 8px;
-    width: auto; /* Overrides the 100% width from general input rule */
+    width: auto;
     cursor: pointer;
 }
 
+/* Checkbox label */
 .checkbox-group label {
     margin: 0;
     font-weight: 400;
@@ -92,7 +94,7 @@ input:focus {
     display: inline;
 }
 
-/* Button Styling */
+/* Primary button */
 button { 
     background: #1a3b5d; 
     color: white; 
@@ -106,27 +108,30 @@ button {
     transition: background 0.3s;
 }
 
+/* Button hover */
 button:hover { 
     background: #0f2840; 
 }
 
-/* Links Section */
+/* Links area */
 .links {
     text-align: center;
     margin-top: 20px;
     font-size: 14px;
 }
 
+/* Anchor links */
 a { 
     color: #1a3b5d; 
     text-decoration: none; 
 }
 
+/* Link hover */
 a:hover { 
     text-decoration: underline; 
 }
 
-/* Error Messages (The Red Text) */
+/* Error text */
 .error-msg {
     color: #d93025; 
     font-size: 12px;

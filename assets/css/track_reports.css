@@ -1,39 +1,147 @@
-* { margin:0; padding:0; box-sizing:border-box; font-family:'Segoe UI',sans-serif; }
-body { background:#f4f7f6; color:#333; }
-
-/* Topbar & Footer (Consistent) */
-.topbar { background:#1a3b5d; color:white; padding:15px; display:flex; justify-content:space-between; align-items:center; position:fixed; width:100%; top:0; z-index:1000;}
-
-.bottombar { 
-    background:#1a3b5d; color:white; padding:15px; 
-    position:fixed; bottom:0; width:100%; 
-    text-align:center; display:flex; justify-content:center; 
+/* Global reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', sans-serif;
 }
 
-.container { max-width:1000px; margin:100px auto 80px; padding:20px; }
-h2 { text-align:center; margin-bottom:20px; color:#1a3b5d; }
+/* Base styles */
+body {
+    background: #f4f7f6;
+    color: #333;
+}
 
-/* Card & Table */
-.card { background:white; padding:20px; border-radius:12px; box-shadow:0 4px 15px rgba(0,0,0,0.05); overflow-x: auto; }
+/* Topbar */
+.topbar {
+    background: #1a3b5d;
+    color: white;
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+}
 
-table { width:100%; border-collapse:collapse; min-width: 600px; }
-th { background:#f8f9fa; color:#555; font-weight:600; text-align:left; padding:15px; border-bottom:2px solid #eee; }
-td { padding:15px; border-bottom:1px solid #eee; color: #444; }
-tr:last-child td { border-bottom: none; }
+/* Bottombar */
+.bottombar {
+    background: #1a3b5d;
+    color: white;
+    padding: 15px;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+}
 
-/* Status Badges */
-.status-badge { padding: 5px 12px; border-radius: 20px; font-size: 12px; font-weight: bold; text-transform: uppercase; }
+/* Page container */
+.container {
+    max-width: 1000px;
+    margin: 100px auto 80px;
+    padding: 20px;
+}
 
-.status-badge.pending { background: #fff3cd; color: #856404; } /* Yellow */
-.status-badge.progress { background: #cce5ff; color: #004085; } /* Blue */
-.status-badge.resolved { background: #d4edda; color: #155724; } /* Green */
+/* Heading */
+h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #1a3b5d;
+}
 
-/* View Button */
-.view-btn { color: #1a3b5d; text-decoration: none; font-weight: bold; }
-.view-btn:hover { text-decoration: underline; }
+/* Card container */
+.card {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    overflow-x: auto;
+}
 
-/* Empty State */
-.empty-state { text-align: center; margin-top: 50px; color: #777; }
-.empty-state button { background:#1a3b5d; color:white; padding:10px 20px; border:none; border-radius:8px; cursor:pointer; margin-top: 15px;}
+/* Table styles */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 600px;
+}
 
-.logo { font-size:24px; font-weight:bold; }
+th {
+    background: #f8f9fa;
+    color: #555;
+    font-weight: 600;
+    text-align: left;
+    padding: 15px;
+    border-bottom: 2px solid #eee;
+}
+
+td {
+    padding: 15px;
+    border-bottom: 1px solid #eee;
+    color: #444;
+}
+
+tr:last-child td {
+    border-bottom: none;
+}
+
+/* Status badges */
+.status-badge {
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.status-badge.pending {
+    background: #fff3cd;
+    color: #856404;
+}
+
+.status-badge.progress {
+    background: #cce5ff;
+    color: #004085;
+}
+
+.status-badge.resolved {
+    background: #d4edda;
+    color: #155724;
+}
+
+/* View button */
+.view-btn {
+    color: #1a3b5d;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.view-btn:hover {
+    text-decoration: underline;
+}
+
+/* Empty state */
+.empty-state {
+    text-align: center;
+    margin-top: 50px;
+    color: #777;
+}
+
+.empty-state button {
+    background: #1a3b5d;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-top: 15px;
+}
+
+/* Logo text */
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+}

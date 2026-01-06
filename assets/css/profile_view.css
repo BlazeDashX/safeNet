@@ -1,56 +1,107 @@
-* { margin:0; padding:0; box-sizing:border-box; font-family:'Segoe UI',sans-serif; }
-body { background:#f0f2f5; color:#333; }
-
-/* Shared styles for bars */
-.topbar, .bottombar { 
-    background:#1a3b5d; 
-    color:white; 
-    padding:15px; 
-    display:flex; 
-    justify-content:space-between; /* Default for topbar */
-    align-items:center; 
-    position:fixed; 
-    width:100%; 
+/* Global reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', sans-serif;
 }
 
-.topbar { top:0; }
+/* Base styles */
+body {
+    background: #f0f2f5;
+    color: #333;
+}
 
-/* Fixed Bottombar: Forces center alignment */
+/* Fixed bars */
+.topbar,
 .bottombar { 
-    bottom:0; 
-    text-align:center; 
-    font-size:14px; 
-    justify-content: center; /* <--- This overrides space-between */
+    background: #1a3b5d;
+    color: white;
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    width: 100%;
 }
 
-.container { max-width:800px; margin:80px auto 50px; padding:20px; }
+/* Topbar */
+.topbar {
+    top: 0;
+}
 
+/* Footer bar */
+.bottombar { 
+    bottom: 0;
+    justify-content: center;
+    text-align: center;
+    font-size: 14px;
+}
+
+/* Page container */
+.container {
+    max-width: 800px;
+    margin: 80px auto 50px;
+    padding: 20px;
+}
+
+/* Card layout */
 .card { 
-    background:white; 
-    padding:30px; 
-    border-radius:12px; 
-    box-shadow:0 4px 15px rgba(0,0,0,0.1); 
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
 }
 
-h2 { text-align:center; margin-bottom:20px; color:#1a3b5d; }
+/* Page title */
+h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #1a3b5d;
+}
 
-table { width:100%; border-collapse:collapse; }
-td { padding:10px; border-bottom:1px solid #eee; }
+/* Table layout */
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
 
+/* Table cell */
+td {
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+}
+
+/* Primary button */
 button { 
-    background:#1a3b5d; 
-    color:white; 
-    padding:12px; 
-    border:none; 
-    border-radius:8px; 
-    cursor:pointer; 
-    width:100%; 
-    font-size:16px; 
-    margin-top:20px; 
+    background: #1a3b5d;
+    color: white;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    width: 100%;
+    font-size: 16px;
+    margin-top: 20px;
 }
 
-button:hover { background:#0f2840; }
+/* Button hover */
+button:hover {
+    background: #0f2840;
+}
 
-.logo { font-size:24px; font-weight:bold; }
-.moto { font-style:italic; }
-a { color:#f1f3f5; }
+/* Logo text */
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+/* Motto text */
+.moto {
+    font-style: italic;
+}
+
+/* Links */
+a {
+    color: #f1f3f5;
+}

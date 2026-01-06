@@ -1,4 +1,4 @@
-/* Layout Adjustment */
+/* Base layout */
 .admin-body {
     display: flex;
     margin: 0;
@@ -6,13 +6,14 @@
     min-height: 100vh;
 }
 
+/* Main section */
 .main-content {
-    margin-left: 260px; /* Pushes content right of sidebar */
+    margin-left: 260px;
     width: calc(100% - 260px);
     padding: 30px;
 }
 
-/* Card Container for the Table */
+/* Table card */
 .table-card {
     background: white;
     padding: 25px;
@@ -22,14 +23,15 @@
     overflow-x: auto;
 }
 
-/* Table Styling */
+/* User table */
 .user-table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 10px;
 }
 
-.user-table th, 
+/* Table cells */
+.user-table th,
 .user-table td {
     padding: 15px;
     border-bottom: 1px solid #eee;
@@ -37,6 +39,7 @@
     color: #2c3e50;
 }
 
+/* Table header */
 .user-table th {
     background-color: #f8f9fa;
     color: #7f8c8d;
@@ -47,11 +50,12 @@
     border-bottom: 2px solid #e1e8ed;
 }
 
+/* Row hover */
 .user-table tr:hover {
     background-color: #fcfcfc;
 }
 
-/* Role Badge */
+/* Role badge */
 .role-tag {
     padding: 4px 12px;
     border-radius: 20px;
@@ -60,10 +64,18 @@
     display: inline-block;
 }
 
-.role-user { background: #e3f2fd; color: #1565c0; }
-.role-consultant { background: #e8f5e9; color: #2e7d32; }
+/* Role colors */
+.role-user {
+    background: #e3f2fd;
+    color: #1565c0;
+}
 
-/* Buttons & Helpers */
+.role-consultant {
+    background: #e8f5e9;
+    color: #2e7d32;
+}
+
+/* Delete button */
 .btn-delete {
     background-color: #fff;
     color: #e74c3c;
@@ -76,13 +88,18 @@
     transition: all 0.2s ease;
 }
 
+/* Button hover */
 .btn-delete:hover {
     background-color: #e74c3c;
     color: white;
 }
 
-.text-center { text-align: center !important; }
+/* Utility */
+.text-center {
+    text-align: center !important;
+}
 
+/* Empty state */
 .empty-row {
     text-align: center;
     padding: 40px;
