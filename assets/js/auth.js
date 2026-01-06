@@ -1,17 +1,16 @@
 document.addEventListener('DOMContentLoaded', function () {
 
-    // --- 1. HANDLE REGISTRATION ---
+    // --- 1. REGISTRATION FORM ---
     const regForm = document.getElementById('regForm');
     if (regForm) {
         regForm.addEventListener('submit', function (e) {
             e.preventDefault(); // Stop page reload
 
-            // Clear previous errors
             const msgBox = document.getElementById('messageBox');
             msgBox.textContent = 'Processing...';
             msgBox.style.color = 'blue';
 
-            // Collect Data
+            // Collect input values
             const formData = {
                 username: document.getElementById('username').value,
                 email: document.getElementById('email').value,
@@ -19,7 +18,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 confirmPassword: document.getElementById('confirmPassword').value
             };
 
-            // Send AJAX Request
+            // Send to server
             fetch('../controllers/regCheck.php', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -30,11 +29,10 @@ document.addEventListener('DOMContentLoaded', function () {
                 if (data.status) {
                     msgBox.style.color = 'green';
                     msgBox.textContent = data.message;
-                    // Optional: Redirect to login after delay
-                    setTimeout(() => { window.location.href = 'login.html'; }, 2000);
+                    setTimeout(() => { window.location.href = 'login.html'; }, 2000); // Redirect
                 } else {
                     msgBox.style.color = 'red';
-                    msgBox.textContent = data.message;
+                    msgBox.textContent = data.message; // Show error
                 }
             })
             .catch(error => {
@@ -44,21 +42,23 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    // --- 2. HANDLE LOGIN ---
+    // --- 2. LOGIN FORM ---
     const loginForm = document.getElementById('loginForm');
     if (loginForm) {
         loginForm.addEventListener('submit', function (e) {
-            e.preventDefault();
+            e.preventDefault(); // Prevent reload
 
             const msgBox = document.getElementById('messageBox');
             msgBox.textContent = 'Verifying...';
             msgBox.style.color = 'blue';
 
+            // Collect login data
             const formData = {
                 username: document.getElementById('username').value,
                 password: document.getElementById('password').value
             };
 
+            // Send to server
             fetch('../controllers/loginCheck.php', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -69,13 +69,14 @@ document.addEventListener('DOMContentLoaded', function () {
                 if (data.status) {
                     msgBox.style.color = 'green';
                     msgBox.textContent = 'Success! Redirecting...';
-                    window.location.href = 'dashboard.html';
+                    window.location.href = 'dashboard.html'; // Redirect
                 } else {
                     msgBox.style.color = 'red';
-                    msgBox.textContent = data.message;
+                    msgBox.textContent = data.message; // Show error
                 }
             })
             .catch(error => console.error('Error:', error));
         });
     }
+
 });

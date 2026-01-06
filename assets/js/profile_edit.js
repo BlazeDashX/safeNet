@@ -1,6 +1,7 @@
+// Page load
 document.addEventListener("DOMContentLoaded", function() {
-    
-    // 1. Load Data
+
+    // Load profile
     fetch('../controllers/profileCheck.php')
     .then(res => res.json())
     .then(data => {
@@ -10,66 +11,71 @@ document.addEventListener("DOMContentLoaded", function() {
             document.getElementById('editEmail').value = user.email;
             document.getElementById('editDob').value = user.dob;
             document.getElementById('editGender').value = user.gender;
-            
+
+            // User role
             let role = user.type || 'user';
-            document.getElementById('editType').value = role.charAt(0).toUpperCase() + role.slice(1);
+            document.getElementById('editType').value =
+                role.charAt(0).toUpperCase() + role.slice(1);
         }
     });
 
-    // 2. Helper: Show/Hide Errors
+    // Error handler
     function setError(id, show, msg = "") {
-        const el = document.getElementById(id); // The input field
-        const errEl = document.getElementById('err-' + id.replace('edit', '').toLowerCase()); // The span
-        
+        const el = document.getElementById(id);
+        const errEl = document.getElementById(
+            'err-' + id.replace('edit', '').toLowerCase()
+        );
+
         if (show) {
             el.classList.add('error-border');
-            if(errEl) {
+            if (errEl) {
                 errEl.textContent = msg;
                 errEl.style.display = 'block';
             }
         } else {
             el.classList.remove('error-border');
-            if(errEl) errEl.style.display = 'none';
+            if (errEl) errEl.style.display = 'none';
         }
     }
 
-    // 3. Handle Submit with Inline Validation
+    // Form submit
     document.getElementById('editForm').onsubmit = function(e) {
         e.preventDefault();
-        
-        // Reset previous errors
-        document.querySelectorAll('.error-text').forEach(el => el.style.display = 'none');
-        document.querySelectorAll('input').forEach(el => el.classList.remove('error-border'));
+
+        // Reset errors
+        document.querySelectorAll('.error-text')
+            .forEach(el => el.style.display = 'none');
+        document.querySelectorAll('input')
+            .forEach(el => el.classList.remove('error-border'));
         document.getElementById('generalError').textContent = "";
 
+        // Form values
         const name = document.getElementById('editName').value.trim();
         const email = document.getElementById('editEmail').value.trim();
         const dob = document.getElementById('editDob').value;
         const gender = document.getElementById('editGender').value;
-        
+
         let isValid = true;
 
-        // --- INLINE JS VALIDATION ---
-
-        // Check Name
+        // Name check
         if (name === "") {
-            setError('editName', true, "Name is required");
+            setError('editName', true, "Name required");
             isValid = false;
         }
 
-        // Check Email
+        // Email check
         const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (email === "") {
-            setError('editEmail', true, "Email is required");
+            setError('editEmail', true, "Email required");
             isValid = false;
         } else if (!emailPattern.test(email)) {
-            setError('editEmail', true, "Please enter a valid email (e.g., user@example.com)");
+            setError('editEmail', true, "Invalid email");
             isValid = false;
         }
 
-        // Check DOB (Age 14+)
+        // DOB check
         if (dob === "") {
-            setError('editDob', true, "Date of Birth is required");
+            setError('editDob', true, "DOB required");
             isValid = false;
         } else {
             const dobDate = new Date(dob);
@@ -80,33 +86,32 @@ document.addEventListener("DOMContentLoaded", function() {
                 age--;
             }
             if (age < 14) {
-                setError('editDob', true, "You must be at least 14 years old");
+                setError('editDob', true, "Age below limit");
                 isValid = false;
             }
         }
 
-        if (!isValid) return; // Stop if JS validation failed
+        // Validation stop
+        if (!isValid) return;
 
-        // --- SEND TO PHP (Server Validation) ---
+        // Submit data
         const formData = { name, email, dob, gender };
 
         fetch('../controllers/profileCheck.php', {
             method: 'POST',
-            headers: {'Content-Type': 'application/json'},
+            headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(formData)
         })
         .then(res => res.json())
         .then(data => {
             if (data.status) {
-                alert("Success: " + data.message);
-                window.location.href = 'profile.php'; 
+                alert(data.message);
+                window.location.href = 'profile.php';
             } else {
-                // Show PHP errors in the general error box
                 const genErr = document.getElementById('generalError');
                 genErr.textContent = data.message;
                 genErr.style.display = 'block';
             }
-        })
-        .catch(err => console.error(err));
+        });
     };
 });

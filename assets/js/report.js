@@ -1,22 +1,22 @@
-document.getElementById('reportForm').onsubmit = function(e) {
+// Form submit
+document.getElementById('reportForm').onsubmit = function (e) {
     e.preventDefault();
 
-    const formData = new FormData(this); // Automatically grabs all inputs + files
+    // Form data
+    const formData = new FormData(this);
 
+    // Send request
     fetch('../../controllers/reportCheck.php', {
         method: 'POST',
-        body: formData // No headers needed for FormData
+        body: formData
     })
     .then(res => res.json())
     .then(data => {
         if (data.status) {
             alert(data.message);
-            // Redirect to dashboard
             window.location.href = '../user/userDashboard.php';
         } else {
-            alert("Error: " + data.message);
+            alert(data.message);
         }
-    })
-    .catch(err => console.error(err));
+    });
 };
-

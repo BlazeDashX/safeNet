@@ -1,20 +1,23 @@
 <?php
-// Database credentials
+// DB credentials
 $host = '127.0.0.1';
 $dbuser = 'root';
-$dbpass = ''; 
-$dbname = 'safenet_db'; 
+$dbpass = '';
+$dbname = 'safenet_db';
 
-
+// Get DB connection
 function getConnection() {
     global $host, $dbuser, $dbpass, $dbname;
 
-    // Create connection
+    // Connect
     $con = new mysqli($host, $dbuser, $dbpass, $dbname);
 
-    
+    // Connection check
     if ($con->connect_error) {
-        die(json_encode(["status" => false, "message" => "Database Connection Failed: " . $con->connect_error]));
+        die(json_encode([
+            "status" => false,
+            "message" => "DB Connection Failed: " . $con->connect_error
+        ]));
     }
 
     return $con;
