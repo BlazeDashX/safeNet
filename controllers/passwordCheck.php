@@ -1,58 +1,62 @@
 <?php
 session_start();
-require_once '../models/db.php';
+require_once '../models/db.php'; // DB connection
 header('Content-Type: application/json');
 
-// 1. Security Check
+// Auth check
 if (!isset($_SESSION['status'])) {
-    echo json_encode(['status' => false, 'message' => 'Please login first']);
+    echo json_encode(['status' => false, 'message' => 'Login required']);
     exit;
 }
 
+// Request check
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $userId = $_SESSION['user_id'];
-    $currentPass = $_POST['currentPass'];
-    $newPass = $_POST['newPass'];
-    $confirmPass = $_POST['confirmPass'];
 
-    // 2. Server-Side Validation
+    $userId      = $_SESSION['user_id'];
+    $currentPass = $_POST['currentPass'] ?? '';
+    $newPass     = $_POST['newPass'] ?? '';
+    $confirmPass = $_POST['confirmPass'] ?? '';
+
+    // Validation
     if (empty($currentPass) || empty($newPass) || empty($confirmPass)) {
-        echo json_encode(['status' => false, 'message' => 'All fields are required']);
-        exit;
-    }
-    if ($newPass !== $confirmPass) {
-        echo json_encode(['status' => false, 'message' => 'New passwords do not match']);
-        exit;
-    }
-    if (strlen($newPass) < 8) { 
-        echo json_encode(['status' => false, 'message' => 'New password must be at least 8 chars']);
+        echo json_encode(['status' => false, 'message' => 'Required fields missing']);
         exit;
     }
 
-    // 3. Verify Current Password
+    // Match check
+    if ($newPass !== $confirmPass) {
+        echo json_encode(['status' => false, 'message' => 'Password mismatch']);
+        exit;
+    }
+
+    // Password policy
+    if (strlen($newPass) < 8) {
+        echo json_encode(['status' => false, 'message' => 'Weak password']);
+        exit;
+    }
+
+    // Fetch current password
     $con = getConnection();
-    $sql = "SELECT password FROM users WHERE id = ?";
-    $stmt = $con->prepare($sql);
+    $stmt = $con->prepare("SELECT password FROM users WHERE id = ?");
     $stmt->bind_param("i", $userId);
     $stmt->execute();
     $result = $stmt->get_result();
     $user = $result->fetch_assoc();
 
-    // Use password_verify since passwords are hashed in DB
+    // Verify password
     if (!$user || !password_verify($currentPass, $user['password'])) {
-        echo json_encode(['status' => false, 'message' => 'Incorrect current password']);
+        echo json_encode(['status' => false, 'message' => 'Invalid current password']);
         exit;
     }
 
-    // 4. Update with New Hash
-    $newPassHashed = password_hash($newPass, PASSWORD_DEFAULT);
+    // Update password
+    $hashedPass = password_hash($newPass, PASSWORD_DEFAULT);
+    $updateStmt = $con->prepare("UPDATE users SET password = ? WHERE id = ?");
+    $updateStmt->bind_param("si", $hashedPass, $userId);
 
-    $updateSql = "UPDATE users SET password = ? WHERE id = ?";
-    $updateStmt = $con->prepare($updateSql);
-    $updateStmt->bind_param("si", $newPassHashed, $userId);
-    
+    // Update result
     if ($updateStmt->execute()) {
-        echo json_encode(['status' => true, 'message' => 'Password updated successfully']);
+        echo json_encode(['status' => true, 'message' => 'Password updated']);
     } else {
         echo json_encode(['status' => false, 'message' => 'Database error']);
     }

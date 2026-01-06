@@ -1,72 +1,63 @@
 <?php
-// 1. SILENCE WARNINGS (Crucial for JSON)
 error_reporting(0);
 ini_set('display_errors', 0);
 
-// 2. Start Buffer (Catches accidental spaces)
 ob_start();
-
 session_start();
 
-// Adjust this path if needed. 
-// If loginCheck.php is in 'controllers', and userModel is in 'models', use this:
-require_once '../models/userModel.php'; 
+require_once '../models/userModel.php'; // User model
 
-// 3. Clean the Buffer (Deletes any warnings/spaces printed by included files)
 ob_clean();
-
 header('Content-Type: application/json');
 
-// --- START LOGIC ---
+// Read JSON input
+$data = json_decode(file_get_contents('php://input'), true);
 
-$json = file_get_contents('php://input');
-$data = json_decode($json, true);
-
+// Input check
 if (!$data) {
     echo json_encode(['status' => false, 'message' => 'No data received']);
     exit;
 }
 
 $identifier = $data['identifier'] ?? '';
-$password = $data['password'] ?? '';
+$password   = $data['password'] ?? '';
 
+// Validation
 if (empty($identifier) || empty($password)) {
-    echo json_encode(['status' => false, 'message' => 'Both fields are required']);
+    echo json_encode(['status' => false, 'message' => 'Required fields missing']);
     exit;
 }
 
-// Check user credentials
+// Credential check
 $user = loginUser($identifier);
 
 if ($user && password_verify($password, $user['password'])) {
-    
-    // Set Session
-    $_SESSION['status'] = true;
-    $_SESSION['user_id'] = $user['id'];
-    $_SESSION['username'] = $user['username'];
-    $_SESSION['type'] = $user['type'];
 
-    // CALCULATE REDIRECT URL
-    $redirectUrl = '../views/user/userDashboard.php'; // Default
+    // Session setup
+    $_SESSION['status']   = true;
+    $_SESSION['user_id']  = $user['id'];
+    $_SESSION['username'] = $user['username'];
+    $_SESSION['type']     = $user['type'];
+
+    // Role redirect
+    $redirectUrl = '../views/user/userDashboard.php';
 
     if ($user['type'] === 'admin') {
         $redirectUrl = '../views/admin_consultant/adminDashboard.php';
-    } 
-    elseif ($user['type'] === 'consultant') {
+    } elseif ($user['type'] === 'consultant') {
         $redirectUrl = '../views/admin_consultant/consultantDashboard.php';
     }
 
-    // Send Clean JSON
+    // Success response
     echo json_encode([
-        'status' => true, 
-        'message' => 'Login successful', 
-        'redirect' => $redirectUrl 
+        'status'   => true,
+        'message'  => 'Login successful',
+        'redirect' => $redirectUrl
     ]);
 
 } else {
     echo json_encode(['status' => false, 'message' => 'Invalid credentials']);
 }
 
-// 4. Force Stop
 exit;
 ?>

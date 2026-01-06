@@ -1,29 +1,43 @@
 <?php
-require_once '../models/db.php'; // Adjust path if needed
+require_once '../models/db.php'; // DB connection
 
+// User data
 $name = "dddd";
-$username = "dddd"; 
+$username = "dddd";
 $email = "dddd@dd.dd";
-$raw_password = "dddd";
+$password = "dddd";
 $gender = "Male";
 $dob = "2000-01-01";
 $type = "admin";
 
-// 1. Hash the password securely
-$hashed_password = password_hash($raw_password, PASSWORD_DEFAULT);
+// Password hashing
+$hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
-// 2. Insert into Database
+// Database insert
 $con = getConnection();
-$sql = "INSERT INTO users (name, username, email, password, gender, dob, type) VALUES (?, ?, ?, ?, ?, ?, ?)";
-$stmt = $con->prepare($sql);
-$stmt->bind_param("sssssss", $name, $username, $email, $hashed_password, $gender, $dob, $type);
+$sql = "INSERT INTO users (name, username, email, password, gender, dob, type)
+        VALUES (?, ?, ?, ?, ?, ?, ?)";
 
+$stmt = $con->prepare($sql);
+$stmt->bind_param(
+    "sssssss",
+    $name,
+    $username,
+    $email,
+    $hashedPassword,
+    $gender,
+    $dob,
+    $type
+);
+
+// Execution check
 if ($stmt->execute()) {
-    echo "Admin created successfully! You can now login.";
+    echo "Admin created successfully.";
 } else {
-    echo "Error: " . $stmt->error;
+    echo "Insertion failed.";
 }
 
+// Close resources
 $stmt->close();
 $con->close();
 ?>

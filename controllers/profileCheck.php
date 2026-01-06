@@ -1,20 +1,22 @@
 <?php
 session_start();
-require_once '../models/userModel.php';
+require_once '../models/userModel.php'; // User model
 header('Content-Type: application/json');
 
-// 1. SECURITY: Check if logged in
+// Auth check
 if (!isset($_SESSION['status']) || $_SESSION['status'] !== true) {
-    echo json_encode(['status' => false, 'message' => 'Not authorized']);
+    echo json_encode(['status' => false, 'message' => 'Unauthorized']);
     exit;
 }
 
 $userId = $_SESSION['user_id'];
 $method = $_SERVER['REQUEST_METHOD'];
 
-// --- GET REQUEST: Load Profile Data (For filling the form) ---
+// Load profile
 if ($method === 'GET') {
+
     $user = getUserById($userId);
+
     if ($user) {
         echo json_encode(['status' => true, 'data' => $user]);
     } else {
@@ -23,57 +25,52 @@ if ($method === 'GET') {
     exit;
 }
 
-// --- POST REQUEST: Save Profile Data (With VALIDATION) ---
+// Update profile
 if ($method === 'POST') {
-    $json = file_get_contents('php://input');
-    $data = json_decode($json, true);
 
-    $name = $data['name'] ?? '';
-    $email = $data['email'] ?? '';
-    $dob = $data['dob'] ?? '';
+    $data = json_decode(file_get_contents('php://input'), true);
+
+    $name   = $data['name'] ?? '';
+    $email  = $data['email'] ?? '';
+    $dob    = $data['dob'] ?? '';
     $gender = $data['gender'] ?? '';
 
-    // --- STRICT PHP VALIDATION START ---
-
-    // 1. Check Empty Fields
+    // Required check
     if (empty($name) || empty($email) || empty($dob) || empty($gender)) {
-        echo json_encode(['status' => false, 'message' => 'All fields are required (PHP Check)']);
+        echo json_encode(['status' => false, 'message' => 'Required fields missing']);
         exit;
     }
 
-    // 2. Validate Email Format
+    // Email validation
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        echo json_encode(['status' => false, 'message' => 'Invalid email format']);
+        echo json_encode(['status' => false, 'message' => 'Invalid email']);
         exit;
     }
 
-    // 3. Validate Name (Letters and spaces only)
-    // allowing . and - for names like "St. John" or "Mary-Jane"
-    if (!preg_match("/^[a-zA-Z\s\.\-]+$/", $name)) {
-        echo json_encode(['status' => false, 'message' => 'Name can only contain letters']);
+    // Name validation
+    if (!preg_match('/^[a-zA-Z\s.\-]+$/', $name)) {
+        echo json_encode(['status' => false, 'message' => 'Invalid name']);
         exit;
     }
 
-    // 4. Validate Age (Must be 14+)
+    // Age validation
     $dobDate = new DateTime($dob);
-    $now = new DateTime();
-    $age = $now->diff($dobDate)->y;
-    
+    $age = (new DateTime())->diff($dobDate)->y;
+
     if ($age < 14) {
-        echo json_encode(['status' => false, 'message' => 'You must be at least 14 years old']);
+        echo json_encode(['status' => false, 'message' => 'Age restriction']);
         exit;
     }
 
-    // --- PHP VALIDATION END ---
-
-    // Update Database
+    // Update data
     $status = updateUser($userId, $name, $email, $gender, $dob);
 
     if ($status) {
-        $_SESSION['username'] = $name; // Update session name immediately
-        echo json_encode(['status' => true, 'message' => 'Profile updated successfully']);
+        $_SESSION['username'] = $name;
+        echo json_encode(['status' => true, 'message' => 'Profile updated']);
     } else {
-        echo json_encode(['status' => false, 'message' => 'Database update failed']);
+        echo json_encode(['status' => false, 'message' => 'Update failed']);
     }
     exit;
 }
+?>

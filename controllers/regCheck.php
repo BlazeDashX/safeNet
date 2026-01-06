@@ -1,56 +1,71 @@
 <?php
 session_start();
-require_once dirname(__DIR__) . '/models/userModel.php';
+require_once dirname(__DIR__) . '/models/userModel.php'; // User model
 header('Content-Type: application/json');
 
-// 1. Get JSON data from JavaScript
-$json = file_get_contents('php://input');
-$data = json_decode($json, true);
+// Read JSON input
+$data = json_decode(file_get_contents('php://input'), true);
 
+// Input check
 if (!$data) {
     echo json_encode(['status' => false, 'message' => 'No data received']);
     exit;
 }
 
-// 2. Extract variables (Safe Extraction using Null Coalescing '??')
-$name = $data['name'] ?? '';
+// Data extraction
+$name     = $data['name'] ?? '';
 $username = $data['username'] ?? '';
-$email = $data['email'] ?? '';
+$email    = $data['email'] ?? '';
 $password = $data['password'] ?? '';
-$confirmPassword = $data['rePassword'] ?? '';
-$gender = $data['gender'] ?? '';
-$dob = $data['dob'] ?? '';
-$type = $data['type'] ?? '';
+$rePass   = $data['rePassword'] ?? '';
+$gender   = $data['gender'] ?? '';
+$dob      = $data['dob'] ?? '';
+$type     = $data['type'] ?? '';
 
-// 3. Backend Validation (Essential Security Layer)
-if (empty($name) || empty($username) || empty($email) || empty($password) || empty($gender) || empty($dob) || empty($type)) {
-    echo json_encode(['status' => false, 'message' => 'Please fill all required fields (Server Check)']);
+// Required validation
+if (
+    empty($name) || empty($username) || empty($email) ||
+    empty($password) || empty($gender) || empty($dob) || empty($type)
+) {
+    echo json_encode(['status' => false, 'message' => 'Required fields missing']);
     exit;
 }
 
-if ($password !== $confirmPassword) {
-    echo json_encode(['status' => false, 'message' => 'Passwords do not match']);
+// Password check
+if ($password !== $rePass) {
+    echo json_encode(['status' => false, 'message' => 'Password mismatch']);
     exit;
 }
 
-// 4. Check duplicates
+// Duplicate checks
 if (!isUsernameAvailable($username)) {
-    echo json_encode(['status' => false, 'message' => 'Username already taken']);
+    echo json_encode(['status' => false, 'message' => 'Username exists']);
     exit;
 }
 
 if (!isEmailAvailable($email)) {
-    echo json_encode(['status' => false, 'message' => 'Email already used']);
+    echo json_encode(['status' => false, 'message' => 'Email exists']);
     exit;
 }
 
-// 5. Hash Password and Save
+// Password hashing
 $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-$status = registerUser($name, $username, $email, $hashedPassword, $gender, $dob, $type);
 
+// Save user
+$status = registerUser(
+    $name,
+    $username,
+    $email,
+    $hashedPassword,
+    $gender,
+    $dob,
+    $type
+);
+
+// Response
 if ($status) {
-    echo json_encode(['status' => true, 'message' => 'Account created successfully!']);
+    echo json_encode(['status' => true, 'message' => 'Account created']);
 } else {
-    echo json_encode(['status' => false, 'message' => 'Database error. Try again.']);
+    echo json_encode(['status' => false, 'message' => 'Database error']);
 }
 ?>
