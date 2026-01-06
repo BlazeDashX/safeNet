@@ -20,4 +20,3 @@ document.getElementById('reportForm').onsubmit = function(e) {
     .catch(err => console.error(err));
 };
 
-console.log("REAL report.js loaded from assets/js");

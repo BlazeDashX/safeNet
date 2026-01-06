@@ -1,6 +1,5 @@
 document.getElementById("loginForm").addEventListener("submit", function (e) {
     e.preventDefault();
-    console.log("Login Button Clicked");
 
     const identifier = document.getElementById("loginIdentifier").value.trim();
     const password = document.getElementById("loginPassword").value.trim();

@@ -114,7 +114,7 @@
     <div class="card">
       <h2>Welcome to SAFENET</h2>
       
-      <form id="loginForm" novalidate>
+      <form id="loginForm" >
         
         <div class="form-group">
             <label for="loginIdentifier">Email or Username</label>

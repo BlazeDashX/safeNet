@@ -27,10 +27,10 @@ $backLink = ($_SESSION['type'] == 'admin') ? "admin_consultant/adminDashboard.ph
     <form id="reportForm" class="card" enctype="multipart/form-data">
       
       <label>Describe the Incident</label>
-      <textarea id="desc" name="description" placeholder="What happened? Please be detailed..." required></textarea>
+      <textarea id="desc" name="description" placeholder="What happened? Please be detailed..."></textarea>
       
       <label>Relationship with Aggressor</label>
-      <select id="rel" name="relationship" required>
+      <select id="rel" name="relationship">
         <option value="">Select Relationship</option>
         <option value="Friend">Friend / Classmate</option>
         <option value="Stranger">Unknown / Stranger</option>
@@ -39,7 +39,7 @@ $backLink = ($_SESSION['type'] == 'admin') ? "admin_consultant/adminDashboard.ph
       </select>
       
       <label>Type of Bullying</label>
-      <select id="type" name="type" required>
+      <select id="type" name="type">
         <option value="">Select Type</option>
         <option value="Harassment">Harassment</option>
         <option value="Threats">Threats</option>

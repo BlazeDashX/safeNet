@@ -26,6 +26,6 @@ CREATE TABLE reports (
     status ENUM('Pending', 'In Progress', 'Resolved') DEFAULT 'Pending',
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    INDEX (user_id), -- Speeds up searching by user
-    INDEX (status)   -- Speeds up admin filtering
+    INDEX (user_id), 
+    INDEX (status) 
 );
