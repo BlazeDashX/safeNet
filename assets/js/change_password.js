@@ -1,91 +1,83 @@
-// --- CHANGE PASSWORD FORM ---
 document.getElementById('changePassForm').onsubmit = function(e) {
-    e.preventDefault(); // Prevent reload
+    e.preventDefault();
 
-    // --- 1. Get Input Elements ---
-    const currentPassEl = document.getElementById('currentPass');
-    const newPassEl = document.getElementById('newPass');
-    const confirmPassEl = document.getElementById('confirmPass');
-    const msg = document.getElementById('msg');
+    const currentPass = document.getElementById('currentPass').value.trim();
+    const newPass = document.getElementById('newPass').value.trim();
+    const confirmPass = document.getElementById('confirmPass').value.trim();
     const dashboardUrl = document.getElementById('dashboardUrl').value;
+    const msg = document.getElementById('msg');
 
-    const currentPass = currentPassEl.value.trim();
-    const newPass = newPassEl.value.trim();
-    const confirmPass = confirmPassEl.value.trim();
+    // Clear previous errors
+    document.querySelectorAll('.error-text').forEach(el => el.style.display = 'none');
+    document.querySelectorAll('input').forEach(el => el.classList.remove('error-border'));
+    msg.textContent = "";
 
-    // --- 2. Helper Functions ---
-    function clearErrors() {
-        document.querySelectorAll('.error-text').forEach(el => el.style.display = 'none'); // hide errors
-        document.querySelectorAll('input').forEach(el => el.classList.remove('error-border')); // reset border
-        msg.textContent = "";
-    }
+    let valid = true;
 
-    function setError(inputEl, errorId, message) {
-        inputEl.classList.add('error-border'); // highlight field
-        const errorEl = document.getElementById(errorId);
-        errorEl.textContent = message;
-        errorEl.style.display = 'block';
-    }
-
-    // --- 3. Validation ---
-    clearErrors();
-    let isValid = true;
-
+    // Validation
     if (currentPass === "") {
-        setError(currentPassEl, 'err-current', "Current password required");
-        isValid = false;
+        document.getElementById('err-current').textContent = "Current password required";
+        document.getElementById('err-current').style.display = 'block';
+        document.getElementById('currentPass').classList.add('error-border');
+        valid = false;
     }
 
     if (newPass === "") {
-        setError(newPassEl, 'err-new', "New password required");
-        isValid = false;
+        document.getElementById('err-new').textContent = "New password required";
+        document.getElementById('err-new').style.display = 'block';
+        document.getElementById('newPass').classList.add('error-border');
+        valid = false;
     } else if (newPass.length < 8) {
-        setError(newPassEl, 'err-new', "Min 8 characters");
-        isValid = false;
+        document.getElementById('err-new').textContent = "Min 8 characters";
+        document.getElementById('err-new').style.display = 'block';
+        document.getElementById('newPass').classList.add('error-border');
+        valid = false;
     }
 
     if (confirmPass === "") {
-        setError(confirmPassEl, 'err-confirm', "Confirm password");
-        isValid = false;
+        document.getElementById('err-confirm').textContent = "Confirm password required";
+        document.getElementById('err-confirm').style.display = 'block';
+        document.getElementById('confirmPass').classList.add('error-border');
+        valid = false;
     } else if (newPass !== confirmPass) {
-        setError(confirmPassEl, 'err-confirm', "Passwords mismatch");
-        isValid = false;
+        document.getElementById('err-confirm').textContent = "Passwords mismatch";
+        document.getElementById('err-confirm').style.display = 'block';
+        document.getElementById('confirmPass').classList.add('error-border');
+        valid = false;
     }
 
-    if (!isValid) return; // stop if invalid
+    if (!valid) return;
 
-    // --- 4. Submit Form ---
-    const formData = new FormData(this);
     msg.textContent = "Updating...";
     msg.style.color = "blue";
 
-    fetch('../controllers/passwordCheck.php', {
-        method: 'POST',
-        body: formData
-    })
-    .then(res => res.json())
-    .then(data => {
-        if (data.status) {
-            // Success
-            msg.textContent = "Success! Redirecting...";
-            msg.style.color = "green";
-            this.reset();
-            alert("Password changed successfully! Click OK to go to dashboard.");
-            window.location.href = dashboardUrl;
-        } else {
-            // Failure
-            if (data.message.toLowerCase().includes("incorrect")) {
-                setError(currentPassEl, 'err-current', "Incorrect current password");
-                msg.textContent = "";
+    // AJAX
+    const xhttp = new XMLHttpRequest();
+    xhttp.open("POST", "../controllers/passwordCheck.php", true);
+    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xhttp.onreadystatechange = function() {
+        if (this.readyState === 4 && this.status === 200) {
+            const res = JSON.parse(this.responseText);
+            if (res.status) {
+                msg.textContent = "Success! Redirecting...";
+                msg.style.color = "green";
+                alert("Password changed successfully! Click OK to go to dashboard.");
+                window.location.href = dashboardUrl;
             } else {
-                msg.textContent = data.message;
-                msg.style.color = "red";
+                if (res.message.toLowerCase().includes("incorrect")) {
+                    document.getElementById('err-current').textContent = "Incorrect current password";
+                    document.getElementById('err-current').style.display = 'block';
+                } else {
+                    msg.textContent = res.message;
+                    msg.style.color = "red";
+                }
             }
         }
-    })
-    .catch(err => {
-        console.error(err);
-        msg.textContent = "System Error. Try again.";
-        msg.style.color = "red";
-    });
+    };
+
+    xhttp.send(
+        "currentPass=" + encodeURIComponent(currentPass) +
+        "&newPass=" + encodeURIComponent(newPass) +
+        "&confirmPass=" + encodeURIComponent(confirmPass)
+    );
 };

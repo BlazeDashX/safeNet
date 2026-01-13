@@ -1,117 +1,97 @@
-// Page load
 document.addEventListener("DOMContentLoaded", function() {
+    const editName = document.getElementById('editName');
+    const editEmail = document.getElementById('editEmail');
+    const editDob = document.getElementById('editDob');
+    const editGender = document.getElementById('editGender');
+    const editType = document.getElementById('editType');
+    const generalError = document.getElementById('generalError');
 
-    // Load profile
-    fetch('../controllers/profileCheck.php')
-    .then(res => res.json())
-    .then(data => {
-        if (data.status) {
-            const user = data.data;
-            document.getElementById('editName').value = user.name;
-            document.getElementById('editEmail').value = user.email;
-            document.getElementById('editDob').value = user.dob;
-            document.getElementById('editGender').value = user.gender;
-
-            // User role
-            let role = user.type || 'user';
-            document.getElementById('editType').value =
-                role.charAt(0).toUpperCase() + role.slice(1);
-        }
-    });
-
-    // Error handler
-    function setError(id, show, msg = "") {
-        const el = document.getElementById(id);
-        const errEl = document.getElementById(
-            'err-' + id.replace('edit', '').toLowerCase()
-        );
-
-        if (show) {
-            el.classList.add('error-border');
-            if (errEl) {
-                errEl.textContent = msg;
-                errEl.style.display = 'block';
+    // Load profile 
+    const xhrLoad = new XMLHttpRequest();
+    xhrLoad.open("GET", "../controllers/profileCheck.php", true);
+    xhrLoad.onreadystatechange = function() {
+        if (this.readyState === 4 && this.status === 200) {
+            const res = JSON.parse(this.responseText);
+            if (res.status) {
+                const user = res.data;
+                editName.value = user.name;
+                editEmail.value = user.email;
+                editDob.value = user.dob;
+                editGender.value = user.gender;
+                editType.value = user.type.charAt(0).toUpperCase() + user.type.slice(1);
+            } else {
+                generalError.textContent = res.message;
+                generalError.style.display = 'block';
             }
-        } else {
-            el.classList.remove('error-border');
-            if (errEl) errEl.style.display = 'none';
+        }
+    };
+    xhrLoad.send();
+
+    function setError(el, message) {
+        el.classList.add('error-border');
+        const errEl = document.getElementById('err-' + el.id.replace('edit','').toLowerCase());
+        if (errEl) {
+            errEl.textContent = message;
+            errEl.style.display = 'block';
         }
     }
 
-    // Form submit
+    function clearErrors() {
+        document.querySelectorAll('.error-text').forEach(el => el.style.display = 'none');
+        document.querySelectorAll('input').forEach(el => el.classList.remove('error-border'));
+        generalError.textContent = '';
+    }
+
     document.getElementById('editForm').onsubmit = function(e) {
         e.preventDefault();
+        clearErrors();
 
-        // Reset errors
-        document.querySelectorAll('.error-text')
-            .forEach(el => el.style.display = 'none');
-        document.querySelectorAll('input')
-            .forEach(el => el.classList.remove('error-border'));
-        document.getElementById('generalError').textContent = "";
+        const name = editName.value.trim();
+        const email = editEmail.value.trim();
+        const dob = editDob.value;
+        const gender = editGender.value;
 
-        // Form values
-        const name = document.getElementById('editName').value.trim();
-        const email = document.getElementById('editEmail').value.trim();
-        const dob = document.getElementById('editDob').value;
-        const gender = document.getElementById('editGender').value;
+        let valid = true;
 
-        let isValid = true;
+        if (name === "") { setError(editName, "Name required"); valid = false; }
 
-        // Name check
-        if (name === "") {
-            setError('editName', true, "Name required");
-            isValid = false;
-        }
-
-        // Email check
         const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (email === "") {
-            setError('editEmail', true, "Email required");
-            isValid = false;
-        } else if (!emailPattern.test(email)) {
-            setError('editEmail', true, "Invalid email");
-            isValid = false;
-        }
+        if (email === "") { setError(editEmail, "Email required"); valid = false; }
+        else if (!emailPattern.test(email)) { setError(editEmail, "Invalid email"); valid = false; }
 
-        // DOB check
-        if (dob === "") {
-            setError('editDob', true, "DOB required");
-            isValid = false;
-        } else {
+        if (dob === "") { setError(editDob, "DOB required"); valid = false; }
+        else {
             const dobDate = new Date(dob);
             const today = new Date();
             let age = today.getFullYear() - dobDate.getFullYear();
             const m = today.getMonth() - dobDate.getMonth();
-            if (m < 0 || (m === 0 && today.getDate() < dobDate.getDate())) {
-                age--;
-            }
-            if (age < 14) {
-                setError('editDob', true, "Age below limit");
-                isValid = false;
-            }
+            if (m < 0 || (m === 0 && today.getDate() < dobDate.getDate())) age--;
+            if (age < 14) { setError(editDob, "Age below limit"); valid = false; }
         }
 
-        // Validation stop
-        if (!isValid) return;
+        if (!valid) return;
 
-        // Submit data
-        const formData = { name, email, dob, gender };
-
-        fetch('../controllers/profileCheck.php', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(formData)
-        })
-        .then(res => res.json())
-        .then(data => {
-            if (data.status) {
-                alert(data.message);
-                window.location.href = 'profile.php';
-            } else {
-                const genErr = document.getElementById('generalError');
-                genErr.textContent = data.message;
-                genErr.style.display = 'block';
+        //  AJAX submit
+        const xhr = new XMLHttpRequest();
+        xhr.open("POST", "../controllers/profileCheck.php", true);
+        xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xhr.onreadystatechange = function() {
+            if (this.readyState === 4 && this.status === 200) {
+                const res = JSON.parse(this.responseText);
+                if (res.status) {
+                    alert(res.message);
+                    window.location.href = 'profile.php';
+                } else {
+                    generalError.textContent = res.message;
+                    generalError.style.display = 'block';
+                }
             }
-        });
+        };
+        xhr.send(
+            "name=" + encodeURIComponent(name) +
+            "&email=" + encodeURIComponent(email) +
+            "&dob=" + encodeURIComponent(dob) +
+            "&gender=" + encodeURIComponent(gender)
+        );
     };
 });

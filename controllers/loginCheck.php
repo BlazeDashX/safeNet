@@ -2,22 +2,18 @@
 error_reporting(0);
 ini_set('display_errors', 0);
 
-ob_start();
 session_start();
+require_once '../models/userModel.php';
 
-require_once '../models/userModel.php'; // User model
-
-ob_clean();
 header('Content-Type: application/json');
 
-// Read JSON input
-$data = json_decode(file_get_contents('php://input'), true);
-
-// Input check
-if (!$data) {
+//  POST handling
+if (!isset($_POST['user'])) {
     echo json_encode(['status' => false, 'message' => 'No data received']);
     exit;
 }
+
+$data = json_decode($_POST['user'], true);
 
 $identifier = $data['identifier'] ?? '';
 $password   = $data['password'] ?? '';
@@ -33,13 +29,11 @@ $user = loginUser($identifier);
 
 if ($user && password_verify($password, $user['password'])) {
 
-    // Session setup
     $_SESSION['status']   = true;
     $_SESSION['user_id']  = $user['id'];
     $_SESSION['username'] = $user['username'];
     $_SESSION['type']     = $user['type'];
 
-    // Role redirect
     $redirectUrl = '../views/user/userDashboard.php';
 
     if ($user['type'] === 'admin') {
@@ -48,7 +42,6 @@ if ($user && password_verify($password, $user['password'])) {
         $redirectUrl = '../views/admin_consultant/consultantDashboard.php';
     }
 
-    // Success response
     echo json_encode([
         'status'   => true,
         'message'  => 'Login successful',
@@ -58,6 +51,4 @@ if ($user && password_verify($password, $user['password'])) {
 } else {
     echo json_encode(['status' => false, 'message' => 'Invalid credentials']);
 }
-
-exit;
 ?>

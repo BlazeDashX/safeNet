@@ -1,46 +1,36 @@
-// Form submit handler
 document.getElementById("loginForm").addEventListener("submit", function (e) {
     e.preventDefault();
 
-    // Input values
-    const identifier = document.getElementById("loginIdentifier").value.trim();
-    const password = document.getElementById("loginPassword").value.trim();
+    let identifier = document.getElementById("loginIdentifier").value.trim();
+    let password   = document.getElementById("loginPassword").value.trim();
 
-    // Clear errors
-    document.querySelectorAll('.error-msg').forEach(el => el.style.display = 'none');
-
-    // Empty check
-    if (!identifier || !password) {
+    if (identifier === "" || password === "") {
         alert("Please fill in both fields.");
         return;
     }
 
-    // Request data
-    const formData = {
+    let user = {
         identifier: identifier,
         password: password
     };
 
-    // Send request
-    fetch('../controllers/loginCheck.php', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData)
-    })
-    .then(response => response.json())
-    .then(data => {
+    let data = JSON.stringify(user);
 
-        // Login success
-        if (data.status) {
-            window.location.href = data.redirect;
-        } 
-        // Login failed
-        else {
-            alert(data.message);
+    let xhttp = new XMLHttpRequest();
+    xhttp.open("POST", "../controllers/loginCheck.php", true);
+    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+    xhttp.onreadystatechange = function () {
+        if (this.readyState === 4 && this.status === 200) {
+            let response = JSON.parse(this.responseText);
+
+            if (response.status) {
+                window.location.href = response.redirect;
+            } else {
+                alert(response.message);
+            }
         }
-    })
-    // Network error
-    .catch(() => {
-        alert("Server connection error.");
-    });
+    };
+
+    xhttp.send("user=" + data);
 });
